@@ -1,0 +1,110 @@
+local s,id=GetID()
+function s.initial_effect(c)
+	Kirafan3.SpCreamateOvSgHeal(c)
+	local e1=Effect.CreateEffect(c)
+	e1:SetDescription(aux.Stringid(id,0))
+	e1:SetType(EFFECT_TYPE_QUICK_O)
+	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetRange(LOCATION_HAND)
+	e1:SetCondition(Kirafan6.spcreamatecon)
+	e1:SetCost(s.cost1)
+	e1:SetTarget(Kirafan6.nospcondamtg)
+	e1:SetOperation(s.op1)
+	c:RegisterEffect(e1)
+	local e2=Effect.CreateEffect(c)
+	e2:SetDescription(aux.Stringid(id,1))
+	e2:SetType(EFFECT_TYPE_QUICK_O)
+	e2:SetCode(EVENT_FREE_CHAIN)
+	e2:SetRange(LOCATION_HAND)
+	e2:SetCondition(Kirafan6.spcreamatecon)
+	e2:SetCost(s.cost2)
+	e2:SetTarget(Kirafan6.nospcondamtg)
+	e2:SetOperation(s.op2)
+	c:RegisterEffect(e2)
+	local e3=Effect.CreateEffect(c)
+	e3:SetDescription(aux.Stringid(10050113,4))
+	e3:SetType(EFFECT_TYPE_QUICK_O)
+	e3:SetCode(EVENT_FREE_CHAIN)
+	e3:SetRange(LOCATION_HAND)
+	e3:SetCondition(Kirafan6.spcreamatecon)
+	e3:SetCost(s.dottecost1)
+	e3:SetTarget(Kirafan6.nospdamtg)
+	e3:SetOperation(s.dotteop1)
+	c:RegisterEffect(e3)
+	local e4=Effect.CreateEffect(c)
+	e4:SetDescription(aux.Stringid(10050113,5))
+	e4:SetType(EFFECT_TYPE_QUICK_O)
+	e4:SetCode(EVENT_FREE_CHAIN)
+	e4:SetRange(LOCATION_HAND)
+	e4:SetCondition(Kirafan6.spcreamatecon)
+	e4:SetCost(s.dottecost11)
+	e4:SetTarget(Kirafan6.nospdamtg)
+	e4:SetOperation(s.dotteop2)
+	c:RegisterEffect(e4)
+	Kirafan3.SpCreamateCharacter(c)
+end
+function s.cost1(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0 end
+	Duel.MoveToField(e:GetHandler(),tp,tp,LOCATION_SZONE,POS_FACEUP,true)
+	Kirafan6.summonhint(e,tp,eg,ep,ev,re,r,rp)
+end
+function s.cost2(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0 end
+	Duel.MoveToField(e:GetHandler(),tp,tp,LOCATION_SZONE,POS_FACEUP,true)
+	Kirafan6.summonhint2(e,tp,eg,ep,ev,re,r,rp)
+end
+function s.op1(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
+	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
+	if deckcount==1 then
+	Duel.DiscardDeck(tp,1,REASON_EFFECT)
+	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
+	Duel.DiscardDeck(tp,1,REASON_EFFECT)
+	else
+	Duel.DiscardDeck(tp,2,REASON_EFFECT) end
+end
+function s.op2(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+    Duel.Draw(tp,1,REASON_EFFECT)
+	Kirafan6.guagetrigger(c)
+end
+function s.dotteop1(e,tp,eg,ep,ev,re,r,rp)
+	Kirafan3.ovallhealop(e,tp,eg,ep,ev,re,r,rp)
+end
+function s.dotteop2(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local g=Duel.GetMatchingGroup(Kirafan6.NoEmFzonefilter,tp,LOCATION_MZONE,0,nil)
+	for tc in aux.Next(g) do
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1:SetValue(1)
+		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+		e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END,3)
+		tc:RegisterEffect(e1)
+	end
+end
+
+function s.dottecost1(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and
+	Duel.IsExistingMatchingCard(Kirafan6.loadfactorfilter,tp,LOCATION_MZONE,0,1,nil)
+	and Duel.IsExistingMatchingCard(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,1,nil,tp) end
+	Duel.MoveToField(e:GetHandler(),tp,tp,LOCATION_SZONE,POS_FACEUP,true)
+	Kirafan6.dottehint(e,tp,eg,ep,ev,re,r,rp)
+	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(10050115,0))
+	local ag=Duel.SelectMatchingCard(tp,Kirafan6.loadfactorfilter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.ChangePosition(ag:GetFirst(),POS_FACEUP_DEFENSE)
+end
+function s.dottecost11(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and
+	Duel.IsExistingMatchingCard(Kirafan6.loadfactorfilter,tp,LOCATION_MZONE,0,1,nil)
+	and Duel.IsExistingMatchingCard(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,1,nil,tp) end
+	Duel.MoveToField(e:GetHandler(),tp,tp,LOCATION_SZONE,POS_FACEUP,true)
+	Kirafan6.dottehint2(e,tp,eg,ep,ev,re,r,rp)
+	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(10050115,0))
+	local ag=Duel.SelectMatchingCard(tp,Kirafan6.loadfactorfilter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.ChangePosition(ag:GetFirst(),POS_FACEUP_DEFENSE)
+end
