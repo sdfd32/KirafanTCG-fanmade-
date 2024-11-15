@@ -4,6 +4,7 @@ Kirafan={}
 --메인 캐릭터 유틸
 function Kirafan.MainCharacter(c)
 	c:EnableCounterPermit(0xc03)
+	c:EnableCounterPermit(0xb07)
 	Kirafan.DuelStartMainCharacter(c)
 	Kirafan.DrawStMainCharacter(c)
 	Kirafan.TurnPositionMainCharacter(c)
@@ -121,9 +122,10 @@ function Kirafan.drawop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetReset(RESET_EVENT+RESETS_STANDARD)
 	e1:SetValue(1)
 	e:GetHandler():RegisterEffect(e1) end
+	local main=Duel.GetMatchingGroup(nil,tp,LOCATION_EMZONE,0,nil):GetFirst()
 	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
 	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
-	if tp==Duel.GetTurnPlayer() then
+	if tp==Duel.GetTurnPlayer() and main:GetCounter(0xb07)==0 then
 	if deckcount<3 then
 	Duel.Draw(tp,deckcount,REASON_RULE)
 	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
@@ -230,6 +232,9 @@ function Kirafan.TurnPositionop(e,tp,eg,ep,ev,re,r,rp)
 	if c:IsSetCard(0xc01) and tp==Duel.GetTurnPlayer() and ally>=enemy then	
 	Duel.SetLP(tp,0)
 	else end
+
+	local main=Duel.GetMatchingGroup(nil,tp,LOCATION_EMZONE,0,nil):GetFirst()
+	main:RemoveCounter(tp,0xb07,1,REASON_EFFECT)
 end
 
 --유희왕과 다른 룰(1메인2스킵,2공격대상안됨,3패매수제한X,4표시형식변경불가,5공격불가,6필드봉인,7전투데미지없음,8공격력=필드레벨합,9랭크=성전레벨)
