@@ -399,9 +399,6 @@ end
 function Kirafan2.alonevalue(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetBaseAttack()
 end
-function Kirafan2.karancon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetCounter(0xc05)>0
-end
 
 --코스트
 function Kirafan2.dottecost1(e,tp,eg,ep,ev,re,r,rp,chk)
