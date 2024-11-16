@@ -25,6 +25,7 @@ end
 function s.fccondition(e)
 	local tp=e:GetHandlerPlayer()
 	return Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,LOCATION_ONFIELD,0,nil)>=3
+	and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.damop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

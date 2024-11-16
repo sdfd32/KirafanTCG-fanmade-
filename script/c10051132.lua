@@ -22,6 +22,7 @@ function s.initial_effect(c)
 end
 function s.battlecon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
+	and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.battleop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

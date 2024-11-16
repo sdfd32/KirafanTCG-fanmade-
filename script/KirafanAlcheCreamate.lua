@@ -60,6 +60,21 @@ function Kirafan4.dotteop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.DiscardDeck(tp,1,REASON_EFFECT)
 end
 
+--상대 돗테오키 게이지-1
+function Kirafan4.CONDOTTEDotteTrigger(c)
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
+	e1:SetProperty(EFFECT_FLAG_DELAY)
+	e1:SetCode(EVENT_TO_GRAVE)
+	e1:SetCondition(Kirafan4.atkcon)
+	e1:SetTarget(Kirafan6.nospcondamtg)
+	e1:SetOperation(Kirafan4.condotteop)
+	c:RegisterEffect(e1)
+end
+function Kirafan4.condotteop(e,tp,eg,ep,ev,re,r,rp)
+	Kirafan6.consumeenemydotte(e,tp,eg,ep,ev,re,r,rp)
+end
+
 --드로우+1 패를 1장 마을로 보낸다.
 function Kirafan4.DrawDotteTrigger(c)
 	local e1=Effect.CreateEffect(c)

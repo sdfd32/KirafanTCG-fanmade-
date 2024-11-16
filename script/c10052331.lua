@@ -27,6 +27,7 @@ function s.initial_effect(c)
 end
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsDefensePos()
+	and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangePosition(e:GetHandler(),POS_FACEUP_ATTACK)

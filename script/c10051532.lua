@@ -28,6 +28,7 @@ function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local bc=Duel.GetAttackTarget()
 	return bc and bc:IsFaceup() and bc:GetCounter(0xb06)>0
+	and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():IsFaceup() and e:GetHandler():IsRelateToBattle() then

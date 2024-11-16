@@ -9,6 +9,7 @@ function Kirafan2.CreamateCharacter(c)
 	c:EnableCounterPermit(0xb04)
 	c:EnableCounterPermit(0xb05)
 	c:EnableCounterPermit(0xb06)
+	c:EnableCounterPermit(0xb08)
 	c:EnableCounterPermit(0xc01)
 	c:EnableCounterPermit(0xc02)
 	c:EnableCounterPermit(0xc04)
@@ -25,6 +26,7 @@ function Kirafan2.CreamateCharacternodotte(c)
 	c:EnableCounterPermit(0xb04)
 	c:EnableCounterPermit(0xb05)
 	c:EnableCounterPermit(0xb06)
+	c:EnableCounterPermit(0xb08)
 	c:EnableCounterPermit(0xc01)
 	c:EnableCounterPermit(0xc02)
 	c:EnableCounterPermit(0xc04)
@@ -109,6 +111,7 @@ function Kirafan2.CreamateEff(c)
 end
 function Kirafan2.AttackDottecon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
+	and e:GetHandler():GetCounter(0xb08)==0
 end
 function Kirafan2.AttackDotteop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

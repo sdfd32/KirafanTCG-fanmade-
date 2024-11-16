@@ -23,6 +23,7 @@ function s.initial_effect(c)
 end
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
+	and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local ally=Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)
