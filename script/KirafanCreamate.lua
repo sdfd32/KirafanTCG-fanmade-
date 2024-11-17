@@ -10,9 +10,11 @@ function Kirafan2.CreamateCharacter(c)
 	c:EnableCounterPermit(0xb05)
 	c:EnableCounterPermit(0xb06)
 	c:EnableCounterPermit(0xb08)
+	c:EnableCounterPermit(0xb09)
 	c:EnableCounterPermit(0xc01)
 	c:EnableCounterPermit(0xc02)
 	c:EnableCounterPermit(0xc04)
+	c:EnableCounterPermit(0xc05)
 	c:EnableCounterPermit(0xd01)
 	Kirafan2.SummonCreamate(c)
 	Kirafan2.CreamateEff(c)
@@ -27,9 +29,11 @@ function Kirafan2.CreamateCharacternodotte(c)
 	c:EnableCounterPermit(0xb05)
 	c:EnableCounterPermit(0xb06)
 	c:EnableCounterPermit(0xb08)
+	c:EnableCounterPermit(0xb09)
 	c:EnableCounterPermit(0xc01)
 	c:EnableCounterPermit(0xc02)
 	c:EnableCounterPermit(0xc04)
+	c:EnableCounterPermit(0xc05)
 	c:EnableCounterPermit(0xd01)
 	Kirafan2.SummonCreamate(c)
 	Kirafan2.CreamateEffnodotte(c)
@@ -108,15 +112,43 @@ function Kirafan2.CreamateEff(c)
 	e8:SetRange(LOCATION_MZONE)
 	e8:SetTarget(Kirafan2.NoBtDestroy)
 	c:RegisterEffect(e8)
+	local e9=Effect.CreateEffect(c)
+    e9:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+    e9:SetCode(EVENT_DAMAGE_STEP_END)
+	e9:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+	e9:SetCountLimit(1)
+	e9:SetCondition(Kirafan2.AttackDottecon2)
+    e9:SetOperation(Kirafan2.AttackDotteop2)
+    c:RegisterEffect(e9)
 end
 function Kirafan2.AttackDottecon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
 	and e:GetHandler():GetCounter(0xb08)==0
+	and e:GetHandler():GetCounter(0xb09)==0
 end
 function Kirafan2.AttackDotteop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
+	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
+	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
 	if c:IsSetCard(0xb01) then return end
-    Duel.DiscardDeck(tp,1,REASON_EFFECT)
+	if c:GetCounter(0xc05)>0 then
+    if deckcount==1 then
+	Duel.DiscardDeck(tp,1,REASON_EFFECT)
+	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
+	Duel.DiscardDeck(tp,1,REASON_EFFECT)
+	else
+	Duel.DiscardDeck(tp,2,REASON_EFFECT) end
+	else
+	Duel.DiscardDeck(tp,1,REASON_EFFECT) end
+end
+function Kirafan2.AttackDottecon2(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.GetTurnPlayer()==tp
+	and e:GetHandler():GetCounter(0xb08)==0
+	and e:GetHandler():GetCounter(0xb09)>0
+end
+function Kirafan2.AttackDotteop2(e,tp,eg,ep,ev,re,r,rp)
+	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
+	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
 end
 function Kirafan2.hpop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
