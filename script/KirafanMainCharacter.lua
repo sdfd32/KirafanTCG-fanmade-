@@ -216,6 +216,7 @@ function Kirafan.TurnPositionop(e,tp,eg,ep,ev,re,r,rp)
 	cg:RemoveCounter(tp,0xb04,1,REASON_EFFECT)
 	cg:RemoveCounter(tp,0xb05,1,REASON_EFFECT)
 	cg:RemoveCounter(tp,0xb06,1,REASON_EFFECT)
+	cg:RemoveCounter(tp,0xb08,1,REASON_EFFECT)
 	cg:RemoveCounter(tp,0xc02,1,REASON_EFFECT)
 	cg:RemoveCounter(tp,0xc01,cg:GetCounter(0xc01),REASON_EFFECT)
 	cg:RemoveCounter(tp,0xc04,cg:GetCounter(0xc04),REASON_EFFECT)	end
