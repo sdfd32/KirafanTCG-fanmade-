@@ -148,7 +148,8 @@ function Kirafan2.AttackDottecon2(e,tp,eg,ep,ev,re,r,rp)
 end
 function Kirafan2.AttackDotteop2(e,tp,eg,ep,ev,re,r,rp)
 	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
-	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetFieldGroupCount(1-tp,0,LOCATION_GRAVE)>0 then
+	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp) end
 end
 function Kirafan2.hpop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
