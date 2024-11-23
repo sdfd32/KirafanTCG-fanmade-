@@ -20,6 +20,6 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 	local dotte=Duel.GetFieldGroupCount(tp,LOCATION_GRAVE,0)
 	Duel.Remove(tg,POS_FACEUP,REASON_RULE)
 	Duel.Remove(c,POS_FACEUP,REASON_RULE)
-	local nadeshiko=Duel.CreateToken(tp,10052133)
+	local nadeshiko=Duel.CreateToken(tp,10062132)
 	Duel.SpecialSummon(nadeshiko,0,tp,tp,false,false,POS_FACEUP_ATTACK)
 end

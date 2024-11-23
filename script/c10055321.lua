@@ -19,6 +19,6 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-    local agiri=Duel.CreateToken(tp,10055322)
+    local agiri=Duel.CreateToken(tp,10065321)
     Duel.MoveToField(agiri,1-tp,1-tp,LOCATION_SZONE,POS_FACEUP,true)
 end
