@@ -42,7 +42,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function s.bossdamfilter(c)
-	return c:IsAttackPos() and not c:IsLocation(LOCATION_EMZONE+LOCATION_FZONE)
+	return c:IsAttackPos() and not c:IsLocation(LOCATION_EMZONE)
 end
 function s.bossdamcon1(e,tp,eg,ep,ev,re,r,rp)
 	local ally=Duel.GetMatchingGroup(s.bossdamfilter,tp,LOCATION_MZONE,0,nil)
@@ -164,10 +164,9 @@ function s.damop2(e,tp,eg,ep,ev,re,r,rp)
 	tc=g:RandomSelect(1-tp,dam)
 	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 	end
-	Kirafan6.consumeenemydotte(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetFieldGroupCount(tp,0,LOCATION_GRAVE)>0 then
-	Kirafan6.consumeenemydotte(e,tp,eg,ep,ev,re,r,rp) end
 	c:AddCounter(0xd01,1)
+	local bg=Duel.GetDecktopGroup(tp,2)
+	Duel.Overlay(c,bg)
 	Kirafan6.hungerop(e,tp,eg,ep,ev,re,r,rp)
 end
 
@@ -226,8 +225,8 @@ function s.damop3(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 	end end
 	c:AddCounter(0xd01,1)
-	Kirafan3.ovallhealop(e,tp,eg,ep,ev,re,r,rp)
-	Kirafan3.ovallhealop(e,tp,eg,ep,ev,re,r,rp)
+	local bg=Duel.GetDecktopGroup(tp,2)
+	Duel.Overlay(c,bg)
 	Kirafan6.hungerop(e,tp,eg,ep,ev,re,r,rp)
 end
 
@@ -277,9 +276,9 @@ function s.damop4(e,tp,eg,ep,ev,re,r,rp)
 	local g=ag:GetOverlayGroup()
 	if #g<=dam then Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
 	else
-	if ag:GetCounter(0xb06)==0 then ag:AddCounter(0xb06,3)
-	elseif ag:GetCounter(0xb06)==1 then ag:AddCounter(0xb06,2)
-	elseif ag:GetCounter(0xb06)==2 then ag:AddCounter(0xb06,1)
+	if ag:GetCounter(0xb04)==0 then ag:AddCounter(0xb04,3)
+	elseif ag:GetCounter(0xb04)==1 then ag:AddCounter(0xb04,2)
+	elseif ag:GetCounter(0xb04)==2 then ag:AddCounter(0xb04,1)
 	else end
 	tc=ag:GetOverlayGroup():RandomSelect(1-tp,dam)
 	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
