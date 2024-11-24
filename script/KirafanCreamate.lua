@@ -16,6 +16,8 @@ function Kirafan2.CreamateCharacter(c)
 	c:EnableCounterPermit(0xc04)
 	c:EnableCounterPermit(0xc05)
 	c:EnableCounterPermit(0xd01)
+	c:EnableCounterPermit(0xd02)
+	c:EnableCounterPermit(0xd03)
 	Kirafan2.SummonCreamate(c)
 	Kirafan2.CreamateEff(c)
 	Kirafan2.CreamateBattle(c)
@@ -380,7 +382,7 @@ function Kirafan2.battleop2(e,tp,eg,ep,ev,re,r,rp)
 	c:RemoveCounter(tp,0xc04,1,REASON_EFFECT)
 end
 
---1리커버리,2수면,3고립
+--1리커버리,2수면,3고립,보스 리커버리
 function Kirafan2.Creamaterecovery(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -404,6 +406,14 @@ function Kirafan2.Creamaterecovery(c)
 	e3:SetCondition(Kirafan2.alonecon)
 	e3:SetValue(Kirafan2.alonevalue)
 	c:RegisterEffect(e3)
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e4:SetCode(EVENT_PHASE+PHASE_BATTLE_START)
+	e4:SetRange(LOCATION_MZONE)
+	e4:SetCountLimit(1)
+	e4:SetCondition(Kirafan2.recoverycon3)
+	e4:SetOperation(Kirafan2.recoveryop3)
+	c:RegisterEffect(e4)
 end
 function Kirafan2.recoverycon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetCounter(0xc02)>0
@@ -436,6 +446,24 @@ function Kirafan2.alonecon(e,tp,eg,ep,ev,re,r,rp)
 end
 function Kirafan2.alonevalue(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetBaseAttack()
+end
+function Kirafan2.recoverycon3(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():GetCounter(0xd03)>0
+end
+function Kirafan2.recoveryop3(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
+	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
+	recoveryheal=2
+	if deckcount<recoveryheal then
+	local bg1=Duel.GetDecktopGroup(tp,deckcount)
+	Duel.Overlay(c,bg1)
+	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
+	local bg2=Duel.GetDecktopGroup(tp,recoveryheal-deckcount)
+	Duel.Overlay(c,bg2)
+	else
+	local bg=Duel.GetDecktopGroup(tp,recoveryheal)
+	Duel.Overlay(c,bg) end
 end
 
 --코스트

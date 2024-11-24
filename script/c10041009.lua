@@ -22,7 +22,7 @@ function s.initial_effect(c)
 end
 function s.damcon1(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsBattlePhase() and not e:GetHandler():IsDefensePos() and Duel.GetTurnPlayer()==tp
-	and Duel.GetMatchingGroupCount(Card.IsCode,tp,LOCATION_MZONE,0,nil,10041002)~=0
+	and Duel.GetMatchingGroupCount(Card.IsCode,tp,LOCATION_MZONE,0,nil,10041007)~=0
 end
 function s.damtg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -65,13 +65,12 @@ function s.damop1(e,tp,eg,ep,ev,re,r,rp)
 	tc=g:RandomSelect(1-tp,dam)
 	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 	end
-    Kirafan6.consumeenemydotte(e,tp,eg,ep,ev,re,r,rp)
 	c:AddCounter(0xd01,1)
 	Kirafan6.hungerop(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.damcon2(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and e:GetHandler():GetCounter(0xd01)>2
-	and Duel.GetMatchingGroupCount(Card.IsCode,tp,LOCATION_MZONE,0,nil,10041002)~=0
+	and Duel.GetMatchingGroupCount(Card.IsCode,tp,LOCATION_MZONE,0,nil,10041007)~=0
 end
 function s.damtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -116,7 +115,9 @@ function s.damop2(e,tp,eg,ep,ev,re,r,rp)
 	tc=g:RandomSelect(1-tp,dam)
 	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 	end
-    Kirafan6.consumeenemydotte(e,tp,eg,ep,ev,re,r,rp)
+	Kirafan6.consumeenemydotte(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetFieldGroupCount(tp,0,LOCATION_GRAVE)>0 then
+	Kirafan6.consumeenemydotte(e,tp,eg,ep,ev,re,r,rp) end
 	c:AddCounter(0xd01,1)
 	Kirafan6.hungerop(e,tp,eg,ep,ev,re,r,rp)
 end

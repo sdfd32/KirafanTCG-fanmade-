@@ -68,14 +68,14 @@ end
 function s.bosstg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return true end
-	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(10041002,5))
+	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(10041007,7))
 end
 function s.bossop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SkipPhase(tp,PHASE_BATTLE,RESET_PHASE+PHASE_END,0)
 	Duel.SkipPhase(tp,PHASE_MAIN2,RESET_PHASE+PHASE_END,0)
 end
 function s.cfilter(c)
-	return c:IsCode(10041002)
+	return c:IsCode(10041007)
 end
 function s.resetcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil)
