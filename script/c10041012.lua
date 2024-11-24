@@ -178,10 +178,10 @@ function s.damtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,1,nil) end
 
-    main:RemoveCounter(tp,0xb01,main:GetCounter(0xd04),REASON_EFFECT)
-    main:RemoveCounter(tp,0xb01,main:GetCounter(0xd05),REASON_EFFECT)
-    main:RemoveCounter(tp,0xb01,main:GetCounter(0xd06),REASON_EFFECT)
-    main:RemoveCounter(tp,0xb01,main:GetCounter(0xd07),REASON_EFFECT)
+    main:RemoveCounter(tp,0xd04,main:GetCounter(0xd04),REASON_EFFECT)
+    main:RemoveCounter(tp,0xd05,main:GetCounter(0xd05),REASON_EFFECT)
+    main:RemoveCounter(tp,0xd06,main:GetCounter(0xd06),REASON_EFFECT)
+    main:RemoveCounter(tp,0xd07,main:GetCounter(0xd07),REASON_EFFECT)
 
 	while true do
 	local extraatk=Duel.GetRandomNumber(1,12)

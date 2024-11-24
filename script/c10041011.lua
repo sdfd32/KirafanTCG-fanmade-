@@ -63,7 +63,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetTurnPlayer()~=tp
+	return Duel.GetTurnPlayer()==tp
 end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
     if e:GetHandler():GetCounter(0xd04)==1 then
