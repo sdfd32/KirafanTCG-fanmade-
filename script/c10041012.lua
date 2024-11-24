@@ -210,7 +210,7 @@ function s.damop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
     local main=Duel.GetMatchingGroup(nil,tp,LOCATION_EMZONE,0,nil):GetFirst()
 	c:AddCounter(0xd01,1)
-    if c:IsSetCard(0xd04) or c:IsSetCard(0xd03) then
+    if main:IsSetCard(0xd04) or main:IsSetCard(0xd03) then
 	local bhp=25
     else
     local bhp=15 end
