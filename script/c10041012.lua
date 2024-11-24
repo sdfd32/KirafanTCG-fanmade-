@@ -209,13 +209,22 @@ end
 function s.damop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
     local main=Duel.GetMatchingGroup(nil,tp,LOCATION_EMZONE,0,nil):GetFirst()
+	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
+	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
 	c:AddCounter(0xd01,1)
     if main:IsSetCard(0xd04) or main:IsSetCard(0xd03) then
-	extrabosshp=25
+	local bhp=25
     else
-    extrabooshp=15 end
-    local bg=Duel.GetDecktopGroup(tp,extrabooshp)
-	Duel.Overlay(c,bg)
+    local bhp=15 end
+	if deckcount<bhp then
+	local bg1=Duel.GetDecktopGroup(tp,deckcount)
+	Duel.Overlay(c,bg1)
+	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
+	local bg2=Duel.GetDecktopGroup(tp,bhp-deckcount)
+	Duel.Overlay(c,bg2)
+	else
+	local bg=Duel.GetDecktopGroup(tp,bhp)
+	Duel.Overlay(c,bg) end
 	Kirafan6.hungerop(e,tp,eg,ep,ev,re,r,rp)
 end
 
@@ -333,7 +342,7 @@ function s.damtg6(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
-	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,6))
+	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,5))
 end
 function s.damop6(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -392,7 +401,7 @@ function s.damtg7(e,tp,eg,ep,ev,re,r,rp,chk)
 	c:RegisterEffect(e1)
 	else end
 
-	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,7))
+	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,6))
 end
 function s.damop7(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -435,7 +444,7 @@ function s.damtg8(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
     main:AddCounter(0xd08,1)
     c:AddCounter(0xd13,1)
-	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,8))
+	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,7))
 end
 function s.damop8(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -493,7 +502,7 @@ function s.damtg9(e,tp,eg,ep,ev,re,r,rp,chk)
 	else end	
 	
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
-	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,9))
+	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,8))
 end
 function s.damop9(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -545,7 +554,7 @@ function s.damtg10(e,tp,eg,ep,ev,re,r,rp,chk)
 	c:RegisterEffect(e1)
 	else end	
 
-	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,10))
+	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,9))
 end
 function s.damop10(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -599,7 +608,7 @@ function s.damtg11(e,tp,eg,ep,ev,re,r,rp,chk)
 	c:RegisterEffect(e1)
 	else end
 	
-	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,11))
+	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,10))
 end
 function s.damop11(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
