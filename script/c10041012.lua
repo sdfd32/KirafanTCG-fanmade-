@@ -195,11 +195,11 @@ function s.damtg2(e,tp,eg,ep,ev,re,r,rp,chk)
     break
     elseif c:GetCounter(0xd11)==0 and extraatk<=9 then
     c:AddCounter(0xd11,1)
-    main:AddCounter(0xd06,1)
+    main:AddCounter(0xd07,1)
     break
     elseif c:GetCounter(0xd12)==0 and extraatk<=12 then
     c:AddCounter(0xd12,1)
-    main:AddCounter(0xd07,1)
+    main:AddCounter(0xd06,1)
     break
 	else end end 
 
@@ -211,10 +211,10 @@ function s.damop2(e,tp,eg,ep,ev,re,r,rp)
     local main=Duel.GetMatchingGroup(nil,tp,LOCATION_EMZONE,0,nil):GetFirst()
 	c:AddCounter(0xd01,1)
     if main:IsSetCard(0xd04) or main:IsSetCard(0xd03) then
-	local bhp=25
+	extrabosshp2=25
     else
-    local bhp=15 end
-	local bg=Duel.GetDecktopGroup(tp,bhp)
+    extrabosshp2=15 end
+	local bg=Duel.GetDecktopGroup(tp,extrabosshp2)
 	Duel.Overlay(c,bg)
 	Kirafan6.hungerop(e,tp,eg,ep,ev,re,r,rp)
 end

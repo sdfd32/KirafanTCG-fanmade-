@@ -173,7 +173,7 @@ end
 function s.resetop2(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetTurnCount()<3 then
 	local a=0
-	while a<=20 do
+	while a<=25 do
     hakka1=Duel.CreateToken(tp,10041012)
 	hakka2=Duel.CreateToken(tp,10041013)
 	Duel.SendtoDeck(hakka1,nil,0,REASON_RULE)
