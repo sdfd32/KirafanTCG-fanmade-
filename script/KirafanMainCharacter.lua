@@ -4,12 +4,6 @@ Kirafan={}
 --메인 캐릭터 유틸
 function Kirafan.MainCharacter(c)
 	c:EnableCounterPermit(0xc03)
-	c:EnableCounterPermit(0xb07)
-	c:EnableCounterPermit(0xd04)
-	c:EnableCounterPermit(0xd05)
-	c:EnableCounterPermit(0xd06)
-	c:EnableCounterPermit(0xd07)
-	c:EnableCounterPermit(0xd08)
 	Kirafan.DuelStartMainCharacter(c)
 	Kirafan.DrawStMainCharacter(c)
 	Kirafan.TurnPositionMainCharacter(c)

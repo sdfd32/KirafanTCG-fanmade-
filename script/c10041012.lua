@@ -209,22 +209,13 @@ end
 function s.damop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
     local main=Duel.GetMatchingGroup(nil,tp,LOCATION_EMZONE,0,nil):GetFirst()
-	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
-	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
 	c:AddCounter(0xd01,1)
-    if main:IsSetCard(0xd04) or main:IsSetCard(0xd03) then
+    if c:IsSetCard(0xd04) or c:IsSetCard(0xd03) then
 	local bhp=25
     else
     local bhp=15 end
-	if deckcount<bhp then
-	local bg1=Duel.GetDecktopGroup(tp,deckcount)
-	Duel.Overlay(c,bg1)
-	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
-	local bg2=Duel.GetDecktopGroup(tp,bhp-deckcount)
-	Duel.Overlay(c,bg2)
-	else
 	local bg=Duel.GetDecktopGroup(tp,bhp)
-	Duel.Overlay(c,bg) end
+	Duel.Overlay(c,bg)
 	Kirafan6.hungerop(e,tp,eg,ep,ev,re,r,rp)
 end
 

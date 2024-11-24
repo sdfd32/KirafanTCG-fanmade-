@@ -4,6 +4,11 @@ Kirafan7={}
 --메인 캐릭터 유틸
 function Kirafan7.BossCharacter(c)
 	c:EnableCounterPermit(0xc03)
+	c:EnableCounterPermit(0xd04)
+	c:EnableCounterPermit(0xd05)
+	c:EnableCounterPermit(0xd06)
+	c:EnableCounterPermit(0xd07)
+	c:EnableCounterPermit(0xd08)
 	Kirafan7.DuelStartMainCharacter(c)
 	Kirafan7.SkipBossCharacter(c)
 	Kirafan7.BossCharacterEff(c)
