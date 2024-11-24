@@ -321,7 +321,7 @@ function s.damtg5(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
-	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,5))
+	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,6))
 end
 function s.damop5(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -345,6 +345,7 @@ function s.bossdamcon6(e,tp,eg,ep,ev,re,r,rp)
 	local ally=Duel.GetMatchingGroup(s.bossdamfilter,tp,LOCATION_MZONE,0,nil)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>1
+	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,1-tp,0,LOCATION_MZONE,nil)==1
 	and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>2
 	and #ally<2 and e:GetHandler():GetCounter(0xd01)<4
 end
@@ -354,7 +355,7 @@ function s.damtg6(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
-	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,6))
+	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,5))
 end
 function s.damop6(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
