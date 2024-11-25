@@ -15,6 +15,7 @@ function Kirafan2.CreamateCharacter(c)
 	c:EnableCounterPermit(0xc02)
 	c:EnableCounterPermit(0xc04)
 	c:EnableCounterPermit(0xc05)
+	c:EnableCounterPermit(0xc06)
 	c:EnableCounterPermit(0xd01)
 	c:EnableCounterPermit(0xd02)
 	c:EnableCounterPermit(0xd03)
@@ -328,8 +329,11 @@ end
 function Kirafan2.battleop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local enemy=c:GetBattleTarget()
-	local dam=c:GetAttack()
 	if enemy==nil then else
+	local dam=c:GetAttack()
+	if enemy:GetCounter(0xc06)>0 then 
+	dam=math.floor(c:GetAttack()/2)
+	enemy:RemoveCounter(tp,0xc06,1,REASON_EFFECT) end
 	Duel.Damage(1-tp,dam,REASON_EFFECT)
 	local g=enemy:GetOverlayGroup()
 	if #g<=dam then Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
@@ -349,6 +353,9 @@ function Kirafan2.Allbattleop(e,tp,eg,ep,ev,re,r,rp)
 	local enemy=Duel.GetMatchingGroup(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)
 	if enemy==nil then else
 	local dam=math.floor(c:GetAttack()/2)
+	if enemy:GetCounter(0xc06)>0 then 
+	dam=math.floor(c:GetAttack()/4)
+	enemy:RemoveCounter(tp,0xc06,1,REASON_EFFECT) end
 	Duel.Damage(1-tp,dam,REASON_EFFECT)
 	local ag=enemy:GetFirst()
 	for ag in aux.Next(enemy) do
@@ -373,6 +380,9 @@ function Kirafan2.battleop2(e,tp,eg,ep,ev,re,r,rp)
 	local enemy=Duel.GetMatchingGroup(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)
 	if enemy==nil then else
 	local dam=c:GetAttack()
+	if enemy:GetCounter(0xc06)>0 then 
+	dam=math.floor(c:GetAttack()/2)
+	enemy:RemoveCounter(tp,0xc06,1,REASON_EFFECT) end
 	Duel.Damage(1-tp,dam,REASON_EFFECT)
 	local ag=enemy:GetFirst()
 	for ag in aux.Next(enemy) do
@@ -387,7 +397,7 @@ function Kirafan2.battleop2(e,tp,eg,ep,ev,re,r,rp)
 	c:RemoveCounter(tp,0xc04,1,REASON_EFFECT)
 end
 
---1리커버리,2수면,3고립,보스 리커버리
+--1리커버리,2수면,3고립,4보스 리커버리
 function Kirafan2.Creamaterecovery(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)

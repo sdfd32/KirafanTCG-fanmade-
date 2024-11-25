@@ -184,20 +184,20 @@ function s.damtg2(e,tp,eg,ep,ev,re,r,rp,chk)
     main:RemoveCounter(tp,0xd07,main:GetCounter(0xd07),REASON_EFFECT)
 
 	while true do
-	local extraatk=Duel.GetRandomNumber(1,12)
-	if c:GetCounter(0xd09)==0 and extraatk<=3 then
+	local extraatk=Duel.GetRandomNumber(1,4)
+	if c:GetCounter(0xd09)==0 and extraatk==1 then
     c:AddCounter(0xd09,1)
     main:AddCounter(0xd04,1)
     break
-	elseif c:GetCounter(0xd10)==0 and extraatk<=6 then
+	elseif c:GetCounter(0xd10)==0 and extraatk==2 then
     c:AddCounter(0xd10,1)
     main:AddCounter(0xd05,1)
     break
-    elseif c:GetCounter(0xd11)==0 and extraatk<=9 then
+    elseif c:GetCounter(0xd11)==0 and extraatk==3 then
     c:AddCounter(0xd11,1)
     main:AddCounter(0xd07,1)
     break
-    elseif c:GetCounter(0xd12)==0 and extraatk<=12 then
+    elseif c:GetCounter(0xd12)==0 and extraatk==4 then
     c:AddCounter(0xd12,1)
     main:AddCounter(0xd06,1)
     break
@@ -209,13 +209,22 @@ end
 function s.damop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
     local main=Duel.GetMatchingGroup(nil,tp,LOCATION_EMZONE,0,nil):GetFirst()
+	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
+	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
 	c:AddCounter(0xd01,1)
     if main:IsSetCard(0xd04) or main:IsSetCard(0xd03) then
 	extrabosshp2=25
     else
     extrabosshp2=15 end
+	if deckcount<extrabosshp2 then
+	local bg1=Duel.GetDecktopGroup(tp,deckcount)
+	Duel.Overlay(c,bg1)
+	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
+	local bg2=Duel.GetDecktopGroup(tp,extrabosshp2-deckcount)
+	Duel.Overlay(c,bg2)
+	else
 	local bg=Duel.GetDecktopGroup(tp,extrabosshp2)
-	Duel.Overlay(c,bg)
+	Duel.Overlay(c,bg) end
 	Kirafan6.hungerop(e,tp,eg,ep,ev,re,r,rp)
 end
 
@@ -337,15 +346,13 @@ function s.damtg6(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.damop6(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-    local enemy=Duel.GetMatchingGroup(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)
     Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
 	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
     Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
-	local ag=enemy:GetFirst()
-	for ag in aux.Next(enemy) do
-	if ag:GetCounter(0xb06)==0 then ag:AddCounter(0xb06,2)
-	elseif ag:GetCounter(0xb06)==1 then ag:AddCounter(0xb06,1)
-	else end end
+	if c:GetCounter(0xc06)==0 then c:AddCounter(0xc06,3)
+	elseif c:GetCounter(0xc06)==1 then c:AddCounter(0xc06,2)
+	elseif c:GetCounter(0xc06)==2 then c:AddCounter(0xc06,1)
+	else end
     c:AddCounter(0xd01,1)
 	Kirafan6.hungerop(e,tp,eg,ep,ev,re,r,rp)
 end
@@ -364,7 +371,9 @@ function s.damtg7(e,tp,eg,ep,ev,re,r,rp,chk)
 	local main=Duel.GetMatchingGroup(nil,tp,LOCATION_EMZONE,0,nil):GetFirst()
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,1,nil) end
-	Duel.SetChainLimit(Kirafan8.mychainlimit)
+	local enemy=Duel.GetMatchingGroup(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)
+	local sg=enemy:RandomSelect(tp,1)
+	Duel.SetTargetCard(sg)
 
     local extraatk=Duel.GetRandomNumber(1,10)
     if (main:IsSetCard(0xd04) and extraatk>=7) or (main:IsSetCard(0xd03) and extraatk>=8) then
@@ -392,6 +401,7 @@ function s.damtg7(e,tp,eg,ep,ev,re,r,rp,chk)
 	c:RegisterEffect(e1)
 	else end
 
+	Duel.SetChainLimit(Kirafan8.mychainlimit)
 	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,6))
 end
 function s.damop7(e,tp,eg,ep,ev,re,r,rp)
