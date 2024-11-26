@@ -176,12 +176,10 @@ function s.spsummon(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,1))
 	
 	else 	
-	if c:GetDefense()==2 then
+	if c:GetDefense()==1 then
 	hakka=Duel.CreateToken(tp,10041012)
 	Duel.SpecialSummon(hakka,0,tp,tp,false,false,POS_FACEUP_ATTACK)
-	else
-	hakka=Duel.CreateToken(tp,10041013)
-	Duel.SpecialSummon(hakka,0,tp,tp,false,false,POS_FACEUP_ATTACK)	end
+	else end
 	if c:IsSetCard(0xd04) or c:IsSetCard(0xd03) then
 	extrabosshp=20
 	else
