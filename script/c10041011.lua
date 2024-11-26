@@ -212,7 +212,6 @@ function s.resetop2(e,tp,eg,ep,ev,re,r,rp)
 	while a<=60 do
     hakka1=Duel.CreateToken(tp,10041012)
 	Duel.SendtoDeck(hakka1,nil,0,REASON_RULE)
-	Duel.SendtoDeck(hakka2,nil,0,REASON_RULE)
 	a=a+1 end
 	Duel.ShuffleDeck(tp)
 	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,0)) 
