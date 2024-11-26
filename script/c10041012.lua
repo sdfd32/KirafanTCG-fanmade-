@@ -526,9 +526,9 @@ function s.damop9(e,tp,eg,ep,ev,re,r,rp)
 	tc=g:RandomSelect(1-tp,dam)
 	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 	end
-    if tg:GetCounter(0xb04)==0 then tg:AddCounter(0xb04,3)
-	elseif tg:GetCounter(0xb04)==1 then tg:AddCounter(0xb04,2)
-	elseif tg:GetCounter(0xb04)==2 then tg:AddCounter(0xb04,1)
+    if tg:GetCounter(0xb01)==0 then tg:AddCounter(0xb01,3)
+	elseif tg:GetCounter(0xb01)==1 then tg:AddCounter(0xb01,2)
+	elseif tg:GetCounter(0xb01)==2 then tg:AddCounter(0xb01,1)
 	else end
 	c:AddCounter(0xd01,1)
 	Kirafan6.hungerop(e,tp,eg,ep,ev,re,r,rp)
