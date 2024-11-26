@@ -434,8 +434,6 @@ function s.bossdamcon8(e,tp,eg,ep,ev,re,r,rp)
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
     and ((e:GetHandler():GetDefense()<=35 and (main:IsSetCard(0xd04) or main:IsSetCard(0xd03))) or (e:GetHandler():GetDefense()<=20 and (main:IsSetCard(0xd01) or main:IsSetCard(0xd02))))
 	and #ally<2 and e:GetHandler():GetCounter(0xd01)<6
-    and main:GetCounter(0xd04)==0 and main:GetCounter(0xd05)==0
-    and main:GetCounter(0xd06)==0 and main:GetCounter(0xd07)==0
     and e:GetHandler():GetCounter(0xd09)==1 and e:GetHandler():GetCounter(0xd10)==1
     and e:GetHandler():GetCounter(0xd11)==1 and e:GetHandler():GetCounter(0xd12)==1
 end
@@ -445,6 +443,10 @@ function s.damtg8(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
+	main:RemoveCounter(tp,0xd04,main:GetCounter(0xd04),REASON_EFFECT)
+    main:RemoveCounter(tp,0xd05,main:GetCounter(0xd05),REASON_EFFECT)
+    main:RemoveCounter(tp,0xd06,main:GetCounter(0xd06),REASON_EFFECT)
+    main:RemoveCounter(tp,0xd07,main:GetCounter(0xd07),REASON_EFFECT)
     main:AddCounter(0xd08,1)
     c:AddCounter(0xd13,1)
 	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,7))
