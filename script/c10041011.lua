@@ -145,7 +145,7 @@ function s.tycon(e)
 	return e:GetHandler():GetCounter(0xd04)==1
 end
 function s.tycon2(e)
-	return e:GetHandler():GetCounter(0xd05)==1
+	return e:GetHandler():GetCounter(0xd06)==1
 end
 function s.tycon3(e)
 	return e:GetHandler():GetCounter(0xd07)==1
