@@ -165,12 +165,14 @@ function s.damop1(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.bossdamcon2(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
 	local ally=Duel.GetMatchingGroup(s.bossdamfilter,tp,LOCATION_MZONE,0,nil)
     local main=Duel.GetMatchingGroup(nil,tp,LOCATION_EMZONE,0,nil):GetFirst()
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
-    and ((e:GetHandler():GetDefense()<=35 and (main:IsSetCard(0xd04) or main:IsSetCard(0xd03))) or (e:GetHandler():GetDefense()<=20 and (main:IsSetCard(0xd01) or main:IsSetCard(0xd02))))
-	and #ally<2 and e:GetHandler():GetCounter(0xd01)<6 and main:GetCounter(0xd08)==0
+    and ((c:GetDefense()<=35 and (main:IsSetCard(0xd04) or main:IsSetCard(0xd03))) or (c:GetDefense()<=20 and (main:IsSetCard(0xd01) or main:IsSetCard(0xd02))))
+	and #ally<2 and c:GetCounter(0xd01)<6 and main:GetCounter(0xd08)==0
+	and (c:GetCounter(0xd09)==0 or c:GetCounter(0xd10)==0 or c:GetCounter(0xd11)==0 or c:GetCounter(0xd12)==0)
 end
 function s.damtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
