@@ -26,7 +26,6 @@ function s.initial_effect(c)
 	e9:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e9:SetCode(EVENT_CHAIN_END)
 	e9:SetRange(LOCATION_MZONE)
-	e9:SetCountLimit(1)
 	e9:SetCondition(s.bossdamcon9)
 	e9:SetTarget(s.damtg9)
 	e9:SetOperation(s.damop9)
@@ -280,22 +279,14 @@ function s.damtg4(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
 
     local extraatk=Duel.GetRandomNumber(1,10)
-    if (main:IsSetCard(0xd04) and extraatk>=7) or (main:IsSetCard(0xd03) and extraatk>=8) then
-    local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_UPDATE_ATTACK)
-	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_CHAIN)
-	e1:SetValue(3)
-	c:RegisterEffect(e1)
-    elseif (main:IsSetCard(0xd04) and extraatk>=5) or (main:IsSetCard(0xd03) and extraatk>=6)
-    or (main:IsSetCard(0xd02) and extraatk>=7) then
+	if (main:IsSetCard(0xd04) and extraatk>=6) or (main:IsSetCard(0xd03) and extraatk>=9) then
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_CHAIN)
 	e1:SetValue(2)
 	c:RegisterEffect(e1)
-	elseif (main:IsSetCard(0xd04) and extraatk<=3) or (main:IsSetCard(0xd03) and extraatk<=4)
+	elseif (main:IsSetCard(0xd04) and extraatk<=5) or (main:IsSetCard(0xd03) and extraatk<=6)
 	or (main:IsSetCard(0xd02) and extraatk<=5) then
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -378,15 +369,15 @@ function s.damtg7(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetTargetCard(sg)
 
     local extraatk=Duel.GetRandomNumber(1,10)
-    if (main:IsSetCard(0xd04) and extraatk>=7) or (main:IsSetCard(0xd03) and extraatk>=8) then
-    local e1=Effect.CreateEffect(c)
+    if (main:IsSetCard(0xd04) and extraatk>=8) or (main:IsSetCard(0xd03) and extraatk==10) then
+	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_CHAIN)
 	e1:SetValue(3)
 	c:RegisterEffect(e1)
-    elseif (main:IsSetCard(0xd04) and extraatk>=5) or (main:IsSetCard(0xd03) and extraatk>=6)
-    or (main:IsSetCard(0xd02) and extraatk>=7) then
+	elseif (main:IsSetCard(0xd04) and extraatk>=5) or (main:IsSetCard(0xd03) and extraatk>=7) 
+	or (main:IsSetCard(0xd02) and extraatk>=8) then
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
@@ -401,7 +392,7 @@ function s.damtg7(e,tp,eg,ep,ev,re,r,rp,chk)
 	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_CHAIN)
 	e1:SetValue(1)
 	c:RegisterEffect(e1)
-	else end
+	else end	
 
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
 	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,6))
@@ -550,12 +541,13 @@ function s.damtg10(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
 
     local extraatk=Duel.GetRandomNumber(1,10)
-	if (main:IsSetCard(0xd04) and extraatk>=6) or (main:IsSetCard(0xd03) and extraatk>=8) then
+	if c:GetAttack()>1 and ((main:IsSetCard(0xd04) and extraatk<=7) or (main:IsSetCard(0xd03) and extraatk<=9) or
+	main:IsSetCard(0xd02) or main:IsSetCard(0xd01)) then
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_CHAIN)
-	e1:SetValue(1)
+	e1:SetValue(-1)
 	c:RegisterEffect(e1)
 	else end	
 
@@ -565,6 +557,7 @@ function s.damop10(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tg=Duel.GetFirstTarget()
 	local enemy=Duel.GetMatchingGroup(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)
+	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
 	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
 	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
 	local attack=c:GetAttack()
@@ -596,14 +589,22 @@ function s.damtg11(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
 	
 	local extraatk=Duel.GetRandomNumber(1,10)
-	if (main:IsSetCard(0xd04) and extraatk>=6) or (main:IsSetCard(0xd03) and extraatk>=9) then
+    if (main:IsSetCard(0xd04) and extraatk>=7) or (main:IsSetCard(0xd03) and extraatk>=8) then
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_UPDATE_ATTACK)
+	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_CHAIN)
+	e1:SetValue(3)
+	c:RegisterEffect(e1)
+	elseif (main:IsSetCard(0xd04) and extraatk>=5) or (main:IsSetCard(0xd03) and extraatk>=6)
+	or (main:IsSetCard(0xd02) and extraatk>=7) then
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_CHAIN)
 	e1:SetValue(2)
 	c:RegisterEffect(e1)
-	elseif (main:IsSetCard(0xd04) and extraatk<=5) or (main:IsSetCard(0xd03) and extraatk<=6)
+	elseif (main:IsSetCard(0xd04) and extraatk<=3) or (main:IsSetCard(0xd03) and extraatk<=4)
 	or (main:IsSetCard(0xd02) and extraatk<=5) then
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
