@@ -4,6 +4,7 @@ Kirafan={}
 --메인 캐릭터 유틸
 function Kirafan.MainCharacter(c)
 	c:EnableCounterPermit(0xc03)
+	c:EnableCounterPermit(0xb07)
 	Kirafan.DuelStartMainCharacter(c)
 	Kirafan.DrawStMainCharacter(c)
 	Kirafan.TurnPositionMainCharacter(c)
@@ -110,7 +111,7 @@ function Kirafan.DrawStMainCharacter(c)
 	c:RegisterEffect(e4)
 end
 function Kirafan.drawcon(e,tp,eg,ep,ev,re,r,rp)
-	return (Duel.GetTurnCount()~=1 and Duel.GetTurnCount()~=2)
+	return (Duel.GetTurnCount()~=1 and Duel.GetTurnCount()~=2) and e:GetHandler():GetCounter(0xb07)
 end
 function Kirafan.drawop(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():GetDefense()<=9 then

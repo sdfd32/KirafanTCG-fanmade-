@@ -400,7 +400,7 @@ function Kirafan2.battleop2(e,tp,eg,ep,ev,re,r,rp)
 	c:RemoveCounter(tp,0xc04,1,REASON_EFFECT)
 end
 
---1리커버리,2수면,3고립,4보스 리커버리
+--1리커버리,2수면,3고립,4보스 리커버리,5혼란
 function Kirafan2.Creamaterecovery(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -432,6 +432,13 @@ function Kirafan2.Creamaterecovery(c)
 	e4:SetCondition(Kirafan2.recoverycon3)
 	e4:SetOperation(Kirafan2.recoveryop3)
 	c:RegisterEffect(e4)
+	local e5=Effect.CreateEffect(c)
+	e5:SetType(EFFECT_TYPE_SINGLE)
+	e5:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+	e5:SetCode(EFFECT_CANNOT_ATTACK)
+	e5:SetCondition(Kirafan2.confusioncon)
+	e5:SetValue(0)
+	c:RegisterEffect(e5)
 end
 function Kirafan2.recoverycon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetCounter(0xc02)>0
@@ -482,6 +489,9 @@ function Kirafan2.recoveryop3(e,tp,eg,ep,ev,re,r,rp)
 	else
 	local bg=Duel.GetDecktopGroup(tp,recoveryheal)
 	Duel.Overlay(c,bg) end
+end
+function Kirafan2.confusioncon(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():GetCounter(0xb08)>0
 end
 
 --코스트
