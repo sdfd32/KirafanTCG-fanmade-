@@ -24,7 +24,6 @@ function s.initial_effect(c)
 end
 function s.AttackDottecon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
-	and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.AttackDotteop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

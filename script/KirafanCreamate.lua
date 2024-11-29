@@ -131,7 +131,6 @@ function Kirafan2.CreamateEff(c)
 end
 function Kirafan2.AttackDottecon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
-	and e:GetHandler():GetCounter(0xb08)==0
 	and e:GetHandler():GetCounter(0xb09)==0
 end
 function Kirafan2.AttackDotteop(e,tp,eg,ep,ev,re,r,rp)
@@ -151,7 +150,6 @@ function Kirafan2.AttackDotteop(e,tp,eg,ep,ev,re,r,rp)
 end
 function Kirafan2.AttackDottecon2(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
-	and e:GetHandler():GetCounter(0xb08)==0
 	and e:GetHandler():GetCounter(0xb09)>0
 end
 function Kirafan2.AttackDotteop2(e,tp,eg,ep,ev,re,r,rp)
