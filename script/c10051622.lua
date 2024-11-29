@@ -29,7 +29,6 @@ end
 function s.karencon(e)
 	local tp=e:GetHandlerPlayer()
 	return Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_MZONE,0,1,nil,10051631)
-	and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.darkfilter(c)
 	return c:IsAttribute(ATTRIBUTE_DARK) and not c:IsLocation(LOCATION_EMZONE)

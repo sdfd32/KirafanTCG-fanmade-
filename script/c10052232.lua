@@ -19,11 +19,10 @@ function s.initial_effect(c)
 	e5:SetTarget(Kirafan6.nodamtg)
 	e5:SetOperation(s.damop)
 	c:RegisterEffect(e5)
-	Kirafan6.NoDotteEffcon3(c)
+	Kirafan6.NoDotteEffcon2(c)
 end
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
-	and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local ally=Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)
