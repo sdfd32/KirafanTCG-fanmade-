@@ -458,7 +458,7 @@ function s.damop7(e,tp,eg,ep,ev,re,r,rp)
 	extrabosshp3=10
     else
     extrabosshp3=5 end
-	if deckcount<extrabosshp2 then
+	if deckcount<extrabosshp3 then
 	local bg1=Duel.GetDecktopGroup(tp,deckcount)
 	Duel.Overlay(c,bg1)
 	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
