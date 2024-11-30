@@ -378,9 +378,12 @@ end
 function s.damtg6(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	local main=Duel.GetMatchingGroup(nil,tp,LOCATION_EMZONE,0,nil):GetFirst()
+	local enemy=Duel.GetMatchingGroup(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
+	local sg=enemy:RandomSelect(tp,1)
+	Duel.SetTargetCard(sg)
 	
 	local extraatk=Duel.GetRandomNumber(1,10)
     if (main:IsSetCard(0xd04) and extraatk>=7) or (main:IsSetCard(0xd03) and extraatk>=9) then
