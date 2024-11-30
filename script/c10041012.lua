@@ -220,7 +220,7 @@ function s.bossdamcon3(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>1
 	and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>4
-	and ((e:GetHandler():GetDefense()<=40 and (main:IsSetCard(0xd04) or main:IsSetCard(0xd03))) or (e:GetHandler():GetDefense()<=20 and (main:IsSetCard(0xd01) or main:IsSetCard(0xd02))))
+	and ((e:GetHandler():GetDefense()<=35 and (main:IsSetCard(0xd04) or main:IsSetCard(0xd03))) or (e:GetHandler():GetDefense()<=20 and (main:IsSetCard(0xd01) or main:IsSetCard(0xd02))))
 	and #ally<2 and e:GetHandler():GetCounter(0xd01)<3
 end
 function s.damtg3(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -292,7 +292,7 @@ function s.bossdamcon5(e,tp,eg,ep,ev,re,r,rp)
 	local main=Duel.GetMatchingGroup(nil,tp,LOCATION_EMZONE,0,nil):GetFirst()
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
-	and ((e:GetHandler():GetDefense()<=35 and (main:IsSetCard(0xd04) or main:IsSetCard(0xd03))) or (e:GetHandler():GetDefense()<=15 and (main:IsSetCard(0xd01) or main:IsSetCard(0xd02))))
+	and ((e:GetHandler():GetDefense()<=20 and (main:IsSetCard(0xd04) or main:IsSetCard(0xd03))) or (e:GetHandler():GetDefense()<=15 and (main:IsSetCard(0xd01) or main:IsSetCard(0xd02))))
 	and #ally<2 and e:GetHandler():GetCounter(0xd01)<4 and e:GetHandler():GetCounter(0xd14)==0
 end
 function s.damtg5(e,tp,eg,ep,ev,re,r,rp,chk)

@@ -103,7 +103,7 @@ function s.spsummon(e,tp,eg,ep,ev,re,r,rp)
     cardamon=Duel.CreateToken(tp,10041013)
 	Duel.SpecialSummon(cardamon,0,tp,tp,false,false,POS_FACEUP_ATTACK)	end
 	if c:IsSetCard(0xd04) or c:IsSetCard(0xd03) then
-	extrabosshp=20
+	extrabosshp=10
 	else
 	extrabosshp=0 end
 
