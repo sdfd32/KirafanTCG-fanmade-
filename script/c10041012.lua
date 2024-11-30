@@ -282,8 +282,6 @@ function s.damop4(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 	end end
 	c:AddCounter(0xd01,1)
-	local bg=Duel.GetDecktopGroup(tp,2)
-	Duel.Overlay(c,bg)
 	Kirafan6.hungerop(e,tp,eg,ep,ev,re,r,rp)
 end
 
