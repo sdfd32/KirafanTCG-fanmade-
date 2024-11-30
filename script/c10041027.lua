@@ -53,9 +53,70 @@ function s.initial_effect(c)
 	e5:SetCondition(s.lgcon)
 	e5:SetOperation(s.lgop)
 	c:RegisterEffect(e5)
+    local e6=Effect.CreateEffect(c)
+	e6:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e6:SetCode(EVENT_PHASE+PHASE_BATTLE_START)
+	e6:SetRange(LOCATION_MZONE)
+	e6:SetCountLimit(1)
+	e6:SetOperation(s.atkop)
+	c:RegisterEffect(e6)
+	local e7=Effect.CreateEffect(c)
+	e7:SetType(EFFECT_TYPE_FIELD)
+	e7:SetRange(LOCATION_EMZONE)
+	e7:SetCode(EFFECT_CANNOT_PLACE_COUNTER)
+	e7:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e7:SetTargetRange(0,1)
+	e7:SetCondition(s.tycon)
+	e7:SetTarget(s.tyctr)
+	c:RegisterEffect(e7)
+	local e8=e7:Clone()
+	e8:SetCondition(s.tycon2)
+	e8:SetTarget(s.tyctr2)
+	c:RegisterEffect(e8)
+	local e9=e7:Clone()
+	e9:SetCondition(s.tycon3)
+	e9:SetTarget(s.tyctr3)
+	c:RegisterEffect(e9)
+end
+function s.atkop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+    if c:GetCounter(0xd04)>0 then
+    local enemy=Duel.GetMatchingGroup(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)
+    local ag=enemy:GetFirst()
+    for ag in aux.Next(enemy) do
+	if ag:GetCounter(0xb05)==0 then ag:AddCounter(0xb05,1) else end end
+    elseif c:GetCounter(0xd05)>0 then
+    local hand=Duel.GetFieldGroupCount(tp,0,LOCATION_HAND)
+	if hand>0 then
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(10050111,9))
+	local g=Duel.SelectMatchingCard(1-tp,nil,1-tp,LOCATION_HAND,0,1,1,nil)
+	local tg=g:GetFirst()
+	Duel.Remove(tg,POS_FACEUP,REASON_EFFECT)
+	else end
+    elseif c:GetCounter(0xd07)>0 then
+    Kirafan6.consumeenemydotte(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetFieldGroupCount(tp,0,LOCATION_GRAVE)>1 then
+	Kirafan6.consumeenemydotte(e,tp,eg,ep,ev,re,r,rp)
+	Kirafan6.consumeenemydotte(e,tp,eg,ep,ev,re,r,rp)
+	elseif Duel.GetFieldGroupCount(tp,0,LOCATION_GRAVE)>0 then
+	Kirafan6.consumeenemydotte(e,tp,eg,ep,ev,re,r,rp) end
+    elseif c:GetCounter(0xd06)>0 then
+    local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
+	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
+	if deckcount==2 then
+	Duel.DiscardDeck(tp,2,REASON_EFFECT)
+	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
+	Duel.DiscardDeck(tp,1,REASON_EFFECT)
+	elseif deckcount==1 then
+	Duel.DiscardDeck(tp,1,REASON_EFFECT)
+	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
+	Duel.DiscardDeck(tp,2,REASON_EFFECT)
+	else
+	Duel.DiscardDeck(tp,3,REASON_EFFECT) end
+    else end
 end
 function s.cannotcounter(e,c,tp,ctype)
-	return ctype==0xb03 or ctype==0xb06
+	return ctype==0xb02 or ctype==0xb03
 end
 function s.bossdamfilter(c)
 	return c:IsAttackPos() and not c:IsLocation(LOCATION_EMZONE)
@@ -68,18 +129,37 @@ end
 function s.bosstg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return true end
-	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(10041012,7))
+	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(10041028,11))
 end
 function s.bossop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SkipPhase(tp,PHASE_BATTLE,RESET_PHASE+PHASE_END,0)
 	Duel.SkipPhase(tp,PHASE_MAIN2,RESET_PHASE+PHASE_END,0)
 end
 function s.cfilter(c)
-	return c:IsCode(10041012)
+	return c:IsCode(10041028)
 end
 function s.resetcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil)
 end
+function s.tycon(e)
+	return e:GetHandler():GetCounter(0xd04)==1
+end
+function s.tycon2(e)
+	return e:GetHandler():GetCounter(0xd06)==1
+end
+function s.tycon3(e)
+	return e:GetHandler():GetCounter(0xd07)==1
+end
+function s.tyctr(e,c,tp,ctype)
+	return ctype==0xb06
+end
+function s.tyctr2(e,c,tp,ctype)
+	return ctype==0xb04
+end
+function s.tyctr3(e,c,tp,ctype)
+	return ctype==0xb05
+end
+
 function s.spsummon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local ally=Duel.GetMatchingGroup(Kirafan6.NoEmFzonefilter,tp,LOCATION_MZONE,0,nil)
@@ -96,12 +176,10 @@ function s.spsummon(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,1))
 	
 	else 	
-	if c:GetDefense()==2 then
-    cardamon=Duel.CreateToken(tp,10041014)
-	Duel.SpecialSummon(cardamon,0,tp,tp,false,false,POS_FACEUP_ATTACK)
-	else
-    cardamon=Duel.CreateToken(tp,10041015)
-	Duel.SpecialSummon(cardamon,0,tp,tp,false,false,POS_FACEUP_ATTACK)	end
+	if c:GetDefense()==1 then
+	hakka=Duel.CreateToken(tp,10041028)
+	Duel.SpecialSummon(hakka,0,tp,tp,false,false,POS_FACEUP_ATTACK)
+	else end
 	if c:IsSetCard(0xd04) or c:IsSetCard(0xd03) then
 	extrabosshp=20
 	else
@@ -110,7 +188,7 @@ function s.spsummon(e,tp,eg,ep,ev,re,r,rp)
 	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
 	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	local bg=Duel.GetDecktopGroup(tp,extrabosshp)
-	Duel.Overlay(cardamon,bg) end
+	Duel.Overlay(hakka,bg) end
 
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -131,11 +209,9 @@ end
 function s.resetop2(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetTurnCount()<3 then
 	local a=0
-	while a<=20 do
-    cardamon1=Duel.CreateToken(tp,10041012)
-	cardamon2=Duel.CreateToken(tp,10041013)
-	Duel.SendtoDeck(cardamon1,nil,0,REASON_RULE)
-	Duel.SendtoDeck(cardamon2,nil,0,REASON_RULE)
+	while a<=60 do
+    hakka1=Duel.CreateToken(tp,10041012)
+	Duel.SendtoDeck(hakka1,nil,0,REASON_RULE)
 	a=a+1 end
 	Duel.ShuffleDeck(tp)
 	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,0)) 
