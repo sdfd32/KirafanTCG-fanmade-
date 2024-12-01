@@ -174,7 +174,7 @@ function s.bossdamcon3(e,tp,eg,ep,ev,re,r,rp)
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
 	and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>1
 	and ((e:GetHandler():GetDefense()<=20 and (main:IsSetCard(0xd04) or main:IsSetCard(0xd03))) or (e:GetHandler():GetDefense()<=10 and (main:IsSetCard(0xd01) or main:IsSetCard(0xd02))))
-	and #ally<2 and e:GetHandler():GetCounter(0xd02)==0
+	and #ally<2 and e:GetHandler():GetCounter(0xd20)==0
 end
 function s.damtg3(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
