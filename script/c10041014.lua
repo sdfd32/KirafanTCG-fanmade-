@@ -108,9 +108,12 @@ function s.spsummon(e,tp,eg,ep,ev,re,r,rp)
 	sugar2=Duel.CreateToken(tp,10041018)
 	Duel.SpecialSummon(sugar2,0,tp,tp,false,false,POS_FACEUP_ATTACK)
 	
-	if c:IsSetCard(0xd04) or c:IsSetCard(0xd03) then
+	if c:IsSetCard(0xd04) then
 	extrabosshp=10
 	extrabosshp1=2
+	elseif c:IsSetCard(0xd03) then
+	extrabosshp=10
+	extrabosshp1=0
 	else
 	extrabosshp=5
 	extrabosshp1=0 end
