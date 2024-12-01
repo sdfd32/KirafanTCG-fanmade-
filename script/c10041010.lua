@@ -29,7 +29,6 @@ function s.damtg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	local main=Duel.GetMatchingGroup(nil,tp,LOCATION_EMZONE,0,nil):GetFirst()
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,1,nil) end
-	Duel.SetTargetCard(sg2)
 	
 	local extraatk=Duel.GetRandomNumber(1,10)
 	if (main:IsSetCard(0xd04) and extraatk<=4) or (main:IsSetCard(0xd03) and extraatk<=6)
