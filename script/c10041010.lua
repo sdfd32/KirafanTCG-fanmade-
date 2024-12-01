@@ -51,6 +51,7 @@ function s.damop1(e,tp,eg,ep,ev,re,r,rp)
 	local enemy=Duel.GetMatchingGroup(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)
 	local attack=c:GetAttack()
 	local dam=attack
+	Duel.ChangePosition(c,POS_FACEUP_DEFENSE)
 	Duel.Damage(1-tp,dam,REASON_EFFECT)
 	local ag=enemy:GetFirst()
 	for ag in aux.Next(enemy) do
