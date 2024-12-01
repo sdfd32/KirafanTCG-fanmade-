@@ -22,7 +22,7 @@ function s.initial_effect(c)
 end
 function s.damcon1(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsBattlePhase() and not e:GetHandler():IsDefensePos() and Duel.GetTurnPlayer()==tp
-	and Duel.GetMatchingGroupCount(Card.IsCode,tp,LOCATION_MZONE,0,nil,10041007)~=0
+	and Duel.GetMatchingGroupCount(Card.IsCode,tp,LOCATION_MZONE,0,nil,10041015)~=0
 end
 function s.damtg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -70,7 +70,7 @@ function s.damop1(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.damcon2(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and e:GetHandler():GetCounter(0xd01)>2
-	and Duel.GetMatchingGroupCount(Card.IsCode,tp,LOCATION_MZONE,0,nil,10041007)~=0
+	and Duel.GetMatchingGroupCount(Card.IsCode,tp,LOCATION_MZONE,0,nil,10041015)~=0
 end
 function s.damtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

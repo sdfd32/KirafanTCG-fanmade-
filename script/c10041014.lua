@@ -147,10 +147,10 @@ function s.resetop2(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetTurnCount()<3 then
 	local a=0
 	while a<=7 do
-	sugar1=Duel.CreateToken(tp,10041007)
-	sugar2=Duel.CreateToken(tp,10041008)
-	sugar3=Duel.CreateToken(tp,10041009)
-	sugar4=Duel.CreateToken(tp,10041010)
+	sugar1=Duel.CreateToken(tp,10041015)
+	sugar2=Duel.CreateToken(tp,10041016)
+	sugar3=Duel.CreateToken(tp,10041017)
+	sugar4=Duel.CreateToken(tp,10041018)
 	Duel.SendtoDeck(sugar1,nil,0,REASON_RULE)
 	Duel.SendtoDeck(sugar2,nil,0,REASON_RULE)
 	Duel.SendtoDeck(sugar3,nil,0,REASON_RULE)
