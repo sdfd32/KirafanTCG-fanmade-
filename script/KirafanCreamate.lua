@@ -26,6 +26,8 @@ function Kirafan2.CreamateCharacter(c)
 	c:EnableCounterPermit(0xd13)
 	c:EnableCounterPermit(0xd14)
 	c:EnableCounterPermit(0xd15)
+	c:EnableCounterPermit(0xd16)
+	c:EnableCounterPermit(0xd17)
 	Kirafan2.SummonCreamate(c)
 	Kirafan2.CreamateEff(c)
 	Kirafan2.CreamateBattle(c)
@@ -44,7 +46,19 @@ function Kirafan2.CreamateCharacternodotte(c)
 	c:EnableCounterPermit(0xc02)
 	c:EnableCounterPermit(0xc04)
 	c:EnableCounterPermit(0xc05)
+	c:EnableCounterPermit(0xc06)
 	c:EnableCounterPermit(0xd01)
+	c:EnableCounterPermit(0xd02)
+	c:EnableCounterPermit(0xd03)
+	c:EnableCounterPermit(0xd09)
+	c:EnableCounterPermit(0xd10)
+	c:EnableCounterPermit(0xd11)
+	c:EnableCounterPermit(0xd12)
+	c:EnableCounterPermit(0xd13)
+	c:EnableCounterPermit(0xd14)
+	c:EnableCounterPermit(0xd15)
+	c:EnableCounterPermit(0xd16)
+	c:EnableCounterPermit(0xd17)
 	Kirafan2.SummonCreamate(c)
 	Kirafan2.CreamateEffnodotte(c)
 	Kirafan2.CreamateBattle(c)
@@ -404,7 +418,7 @@ function Kirafan2.battleop2(e,tp,eg,ep,ev,re,r,rp)
 	c:RemoveCounter(tp,0xc04,1,REASON_EFFECT)
 end
 
---1리커버리,2수면,3고립,4보스 리커버리
+--1리커버리,2수면,3고립,4보스 리커버리,5최대 체력 감소
 function Kirafan2.Creamaterecovery(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -436,6 +450,14 @@ function Kirafan2.Creamaterecovery(c)
 	e4:SetCondition(Kirafan2.recoverycon3)
 	e4:SetOperation(Kirafan2.recoveryop3)
 	c:RegisterEffect(e4)
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_SINGLE)
+	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e3:SetRange(LOCATION_MZONE)
+	e3:SetCode(EFFECT_SET_ATTACK_FINAL)
+	e3:SetCondition(Kirafan2.maxhpcon)
+	e3:SetOperation(Kirafan2.maxhpop)
+	c:RegisterEffect(e3)
 end
 function Kirafan2.recoverycon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetCounter(0xc02)>0
@@ -486,6 +508,15 @@ function Kirafan2.recoveryop3(e,tp,eg,ep,ev,re,r,rp)
 	else
 	local bg=Duel.GetDecktopGroup(tp,recoveryheal)
 	Duel.Overlay(c,bg) end
+end
+function Kirafan2.maxhpcon(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	return c:GetBaseDefense()-c:GetCounter(0xd16)-c:GetCounter(0xd17)*2<=0
+end
+function Kirafan2.maxhpop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local g=c:GetOverlayGroup()
+	Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
 end
 
 --코스트

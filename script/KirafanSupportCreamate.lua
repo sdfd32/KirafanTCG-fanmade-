@@ -88,7 +88,7 @@ function Kirafan3.sghealop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	local c=e:GetHandler()
 	local ahp=tc:GetDefense()
-	local bhp=tc:GetBaseDefense()
+	local bhp=tc:GetBaseDefense()-tc:GetCounter(0xd16)-tc:GetCounter(0xd17)*2
 	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
 	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
 	if c:IsCode(10054110) then sgheal=3
@@ -135,7 +135,7 @@ function Kirafan3.allhealop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=hg:GetFirst()
 	for tc in aux.Next(hg) do
 	local ahp=tc:GetDefense()
-	local bhp=tc:GetBaseDefense()
+	local bhp=tc:GetBaseDefense()-tc:GetCounter(0xd16)-tc:GetCounter(0xd17)*2
 	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
 	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
 	if c:IsCode(10055113) then allheal=1

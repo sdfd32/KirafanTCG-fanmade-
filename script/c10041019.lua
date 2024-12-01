@@ -55,10 +55,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 function s.cannotcounter(e,c,tp,ctype)
-	return ctype==0xb03 or ctype==0xb04
+	return ctype==0xb01 or ctype==0xb03 or ctype==0xb04 or ctype==0xb08
 end
 function s.bossdamfilter(c)
-	return c:IsAttackPos() and not c:IsLocation(LOCATION_EMZONE+LOCATION_FZONE)
+	return c:IsAttackPos() and not c:IsLocation(LOCATION_EMZONE)
 end
 function s.bosscon(e,tp,eg,ep,ev,re,r,rp)
 	local ally=Duel.GetMatchingGroup(s.bossdamfilter,tp,LOCATION_MZONE,0,nil)
@@ -68,14 +68,14 @@ end
 function s.bosstg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return true end
-	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(10041015,7))
+	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(10041020,7))
 end
 function s.bossop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SkipPhase(tp,PHASE_BATTLE,RESET_PHASE+PHASE_END,0)
 	Duel.SkipPhase(tp,PHASE_MAIN2,RESET_PHASE+PHASE_END,0)
 end
 function s.cfilter(c)
-	return c:IsCode(10041015)
+	return c:IsCode(10041020) or c:IsCode(10041021)
 end
 function s.resetcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil)
@@ -97,32 +97,32 @@ function s.spsummon(e,tp,eg,ep,ev,re,r,rp)
 	
 	else 	
 	if c:GetDefense()==2 then
-	sugar=Duel.CreateToken(tp,10041015)
-	Duel.SpecialSummon(sugar,0,tp,tp,false,false,POS_FACEUP_ATTACK)
+    ginger=Duel.CreateToken(tp,10041020)
+	Duel.SpecialSummon(ginger,0,tp,tp,false,false,POS_FACEUP_ATTACK)
 	else
-	sugar=Duel.CreateToken(tp,10041016)
-	Duel.SpecialSummon(sugar,0,tp,tp,false,false,POS_FACEUP_ATTACK)	end
+	ginger=Duel.CreateToken(tp,10041021)
+	Duel.SpecialSummon(ginger,0,tp,tp,false,false,POS_FACEUP_ATTACK)	end
 	
-	sugar1=Duel.CreateToken(tp,10041017)
-	Duel.SpecialSummon(sugar1,0,tp,tp,false,false,POS_FACEUP_ATTACK)
-	sugar2=Duel.CreateToken(tp,10041018)
-	Duel.SpecialSummon(sugar2,0,tp,tp,false,false,POS_FACEUP_ATTACK)
+	ginger1=Duel.CreateToken(tp,10041022)
+	Duel.SpecialSummon(ginger1,0,tp,tp,false,false,POS_FACEUP_ATTACK)
+	ginger2=Duel.CreateToken(tp,10041023)
+	Duel.SpecialSummon(ginger2,0,tp,tp,false,false,POS_FACEUP_ATTACK)
 	
 	if c:IsSetCard(0xd04) or c:IsSetCard(0xd03) then
-	extrabosshp=5
-	extrabosshp1=5
+	extrabosshp=15
+	extrabosshp1=0
 	else
-	extrabosshp=0
+	extrabosshp=10
 	extrabosshp1=0 end
 
 	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
 	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	local bg=Duel.GetDecktopGroup(tp,extrabosshp)
-	Duel.Overlay(sugar,bg)
+	Duel.Overlay(ginger,bg)
 	local bg1=Duel.GetDecktopGroup(tp,extrabosshp1)
-	Duel.Overlay(sugar1,bg1)
+	Duel.Overlay(ginger1,bg1)
 	local bg2=Duel.GetDecktopGroup(tp,extrabosshp1)
-	Duel.Overlay(sugar2,bg2) end
+	Duel.Overlay(ginger2,bg2) end
 
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -144,14 +144,14 @@ function s.resetop2(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetTurnCount()<3 then
 	local a=0
 	while a<=7 do
-	sugar1=Duel.CreateToken(tp,10041007)
-	sugar2=Duel.CreateToken(tp,10041008)
-	sugar3=Duel.CreateToken(tp,10041009)
-	sugar4=Duel.CreateToken(tp,10041010)
-	Duel.SendtoDeck(sugar1,nil,0,REASON_RULE)
-	Duel.SendtoDeck(sugar2,nil,0,REASON_RULE)
-	Duel.SendtoDeck(sugar3,nil,0,REASON_RULE)
-	Duel.SendtoDeck(sugar4,nil,0,REASON_RULE)
+	ginger1=Duel.CreateToken(tp,10041020)
+	ginger2=Duel.CreateToken(tp,10041021)
+	ginger3=Duel.CreateToken(tp,10041022)
+	ginger4=Duel.CreateToken(tp,10041023)
+	Duel.SendtoDeck(ginger1,nil,0,REASON_RULE)
+	Duel.SendtoDeck(ginger2,nil,0,REASON_RULE)
+	Duel.SendtoDeck(ginger3,nil,0,REASON_RULE)
+	Duel.SendtoDeck(ginger4,nil,0,REASON_RULE)
 	a=a+1 end
 	Duel.ShuffleDeck(tp)
 	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,0)) 

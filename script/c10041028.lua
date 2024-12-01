@@ -26,6 +26,7 @@ function s.initial_effect(c)
 	e9:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e9:SetCode(EVENT_CHAIN_END)
 	e9:SetRange(LOCATION_MZONE)
+	e9:SetCountLimit(1)
 	e9:SetCondition(s.bossdamcon9)
 	e9:SetTarget(s.damtg9)
 	e9:SetOperation(s.damop9)
@@ -178,29 +179,75 @@ function s.damtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local main=Duel.GetMatchingGroup(nil,tp,LOCATION_EMZONE,0,nil):GetFirst()
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,1,nil) end
-
-    main:RemoveCounter(tp,0xd04,main:GetCounter(0xd04),REASON_EFFECT)
+	
+	main:RemoveCounter(tp,0xd04,main:GetCounter(0xd04),REASON_EFFECT)
     main:RemoveCounter(tp,0xd05,main:GetCounter(0xd05),REASON_EFFECT)
     main:RemoveCounter(tp,0xd06,main:GetCounter(0xd06),REASON_EFFECT)
     main:RemoveCounter(tp,0xd07,main:GetCounter(0xd07),REASON_EFFECT)
 
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_REMOVE_ATTRIBUTE)
+	e1:SetValue(ATTRIBUTE_FIRE)
+	c:RegisterEffect(e1)
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_SINGLE)
+	e2:SetCode(EFFECT_REMOVE_ATTRIBUTE)
+	e2:SetValue(ATTRIBUTE_WATER)
+	c:RegisterEffect(e2)
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_SINGLE)
+	e3:SetCode(EFFECT_REMOVE_ATTRIBUTE)
+	e3:SetValue(ATTRIBUTE_EARTH)
+	c:RegisterEffect(e3)
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_SINGLE)
+	e4:SetCode(EFFECT_REMOVE_ATTRIBUTE)
+	e4:SetValue(ATTRIBUTE_WIND)
+	c:RegisterEffect(e4)
+	local e5=Effect.CreateEffect(c)
+	e5:SetType(EFFECT_TYPE_SINGLE)
+	e5:SetCode(EFFECT_REMOVE_ATTRIBUTE)
+	e5:SetValue(ATTRIBUTE_DARK)
+	c:RegisterEffect(e5)
+
 	while true do
 	local extraatk=Duel.GetRandomNumber(1,4)
 	if c:GetCounter(0xd09)==0 and extraatk==1 then
-    c:AddCounter(0xd09,1)
-    main:AddCounter(0xd04,1)
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_ADD_ATTRIBUTE)
+	e1:SetValue(ATTRIBUTE_FIRE)
+	c:RegisterEffect(e1)
+	main:AddCounter(0xd04,1)
+	c:AddCounter(0xd09,1)
     break
 	elseif c:GetCounter(0xd10)==0 and extraatk==2 then
-    c:AddCounter(0xd10,1)
-    main:AddCounter(0xd05,1)
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_ADD_ATTRIBUTE)
+	e1:SetValue(ATTRIBUTE_WATER)
+	c:RegisterEffect(e1)
+	main:AddCounter(0xd05,1)
+	c:AddCounter(0xd10,1)
     break
     elseif c:GetCounter(0xd11)==0 and extraatk==3 then
-    c:AddCounter(0xd11,1)
-    main:AddCounter(0xd07,1)
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_ADD_ATTRIBUTE)
+	e1:SetValue(ATTRIBUTE_WIND)
+	c:RegisterEffect(e1)
+	main:AddCounter(0xd07,1)
+	c:AddCounter(0xd11,1)
     break
     elseif c:GetCounter(0xd12)==0 and extraatk==4 then
-    c:AddCounter(0xd12,1)
-    main:AddCounter(0xd06,1)
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_ADD_ATTRIBUTE)
+	e1:SetValue(ATTRIBUTE_EARTH)
+	c:RegisterEffect(e1)
+	main:AddCounter(0xd06,1)
+	c:AddCounter(0xd12,1)
     break
 	else end end 
 
@@ -236,7 +283,7 @@ function s.bossdamcon3(e,tp,eg,ep,ev,re,r,rp)
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
     and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>2
 	and #ally<2 and e:GetHandler():GetCounter(0xd01)<6
-    and main:GetCounter(0xd04)==1
+    and e:GetHandler():IsAttribute(ATTRIBUTE_FIRE)
 end
 function s.damtg3(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -269,7 +316,7 @@ function s.bossdamcon4(e,tp,eg,ep,ev,re,r,rp)
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
     and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>2
 	and #ally<2 and e:GetHandler():GetCounter(0xd01)<6
-    and main:GetCounter(0xd05)==1
+    and e:GetHandler():IsAttribute(ATTRIBUTE_WATER)
 end
 function s.damtg4(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -327,7 +374,7 @@ function s.bossdamcon6(e,tp,eg,ep,ev,re,r,rp)
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
     and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>2
 	and #ally<2 and e:GetHandler():GetCounter(0xd01)<6
-    and main:GetCounter(0xd06)==1
+    and e:GetHandler():IsAttribute(ATTRIBUTE_EARTH)
 end
 function s.damtg6(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -357,7 +404,7 @@ function s.bossdamcon7(e,tp,eg,ep,ev,re,r,rp)
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
     and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>2
 	and #ally<2 and e:GetHandler():GetCounter(0xd01)<6
-    and main:GetCounter(0xd07)==1
+    and e:GetHandler():IsAttribute(ATTRIBUTE_WIND)
 end
 function s.damtg7(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -434,11 +481,44 @@ function s.damtg8(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
+
 	main:RemoveCounter(tp,0xd04,main:GetCounter(0xd04),REASON_EFFECT)
     main:RemoveCounter(tp,0xd05,main:GetCounter(0xd05),REASON_EFFECT)
     main:RemoveCounter(tp,0xd06,main:GetCounter(0xd06),REASON_EFFECT)
     main:RemoveCounter(tp,0xd07,main:GetCounter(0xd07),REASON_EFFECT)
-    main:AddCounter(0xd08,1)
+	
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_REMOVE_ATTRIBUTE)
+	e1:SetValue(ATTRIBUTE_FIRE)
+	c:RegisterEffect(e1)
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_SINGLE)
+	e2:SetCode(EFFECT_REMOVE_ATTRIBUTE)
+	e2:SetValue(ATTRIBUTE_WATER)
+	c:RegisterEffect(e2)
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_SINGLE)
+	e3:SetCode(EFFECT_REMOVE_ATTRIBUTE)
+	e3:SetValue(ATTRIBUTE_EARTH)
+	c:RegisterEffect(e3)
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_SINGLE)
+	e4:SetCode(EFFECT_REMOVE_ATTRIBUTE)
+	e4:SetValue(ATTRIBUTE_WIND)
+	c:RegisterEffect(e4)
+	local e5=Effect.CreateEffect(c)
+	e5:SetType(EFFECT_TYPE_SINGLE)
+	e5:SetCode(EFFECT_REMOVE_ATTRIBUTE)
+	e5:SetValue(ATTRIBUTE_DARK)
+	c:RegisterEffect(e5)
+	local e6=Effect.CreateEffect(c)
+	e6:SetType(EFFECT_TYPE_SINGLE)
+	e6:SetCode(EFFECT_ADD_ATTRIBUTE)
+	e6:SetValue(ATTRIBUTE_DARK)
+	c:RegisterEffect(e6)
+
+	main:AddCounter(0xd08,1)
     c:AddCounter(0xd13,1)
 	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,7))
 end
@@ -460,7 +540,7 @@ function s.bossdamcon9(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
 	and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>3
-	and #ally<2 and e:GetHandler():GetCounter(0xd01)<6 and main:GetCounter(0xd08)==1
+	and #ally<2 and e:GetHandler():GetCounter(0xd01)<6 and e:GetHandler():IsAttribute(ATTRIBUTE_DARK)
 end
 function s.damtg9(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
