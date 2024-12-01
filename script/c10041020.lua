@@ -297,7 +297,7 @@ function s.bossdamcon5(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
 	and #ally<2 and c:GetCounter(0xd01)<4 and c:GetCounter(0xd18)<4
-	and ((c:GetDefense()<=30 and main:IsSetCard(0xd04)) or (c:GetDefense()<=25 and (main:IsSetCard(0xd01) or main:IsSetCard(0xd02) or main:IsSetCard(0xd03))))
+	and ((c:GetDefense()<=30 and (main:IsSetCard(0xd04) or main:IsSetCard(0xd03))) or (c:GetDefense()<=25 and (main:IsSetCard(0xd01) or main:IsSetCard(0xd02) or main:IsSetCard(0xd03))))
 end
 function s.damtg5(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
