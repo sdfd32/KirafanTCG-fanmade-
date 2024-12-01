@@ -36,7 +36,6 @@ function s.initial_effect(c)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e3:SetCode(EVENT_CHAIN_END)
 	e3:SetRange(LOCATION_MZONE)
-	e3:SetCountLimit(3)
 	e3:SetCondition(s.bossdamcon3)
 	e3:SetTarget(s.damtg3)
 	e3:SetOperation(s.damop3)
@@ -187,7 +186,7 @@ function s.bossdamcon3(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>1
 	and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>2
-	and #ally<2 and e:GetHandler():GetCounter(0xd01)<4
+	and #ally<2 and e:GetHandler():GetCounter(0xd01)<3
 end
 function s.damtg3(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -229,7 +228,7 @@ function s.damop3(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 	end
 	c:AddCounter(0xd01,1)
-	tg:AddCounter(0xd16,1)
+	tg:AddCounter(0xd17,1)
 	Kirafan6.hungerop(e,tp,eg,ep,ev,re,r,rp)
 end
 
@@ -292,12 +291,13 @@ function s.damop4(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.bossdamcon5(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
 	local ally=Duel.GetMatchingGroup(s.bossdamfilter,tp,LOCATION_MZONE,0,nil)
 	local main=Duel.GetMatchingGroup(nil,tp,LOCATION_EMZONE,0,nil):GetFirst()
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
-	and #ally<2 and e:GetHandler():GetCounter(0xd01)<4 and e:GetHandler():GetCounter(0xd19)==0
-	and ((c:GetDefense()<=15 and (main:IsSetCard(0xd04) or main:IsSetCard(0xd03))) or (c:GetDefense()<=10 and (main:IsSetCard(0xd01) or main:IsSetCard(0xd02))))
+	and #ally<2 and c:GetCounter(0xd01)<4 and c:GetCounter(0xd19)==0
+	and ((c:GetDefense()<=15 and main:IsSetCard(0xd04)) or (c:GetDefense()<=15 and (main:IsSetCard(0xd01) or main:IsSetCard(0xd02) or main:IsSetCard(0xd03))))
 end
 function s.damtg5(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
