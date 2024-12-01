@@ -184,7 +184,7 @@ function s.damtg3(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
-	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,6))
+	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,3))
 end
 function s.damop3(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
