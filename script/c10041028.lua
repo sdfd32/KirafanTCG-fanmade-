@@ -474,6 +474,7 @@ function s.bossdamcon8(e,tp,eg,ep,ev,re,r,rp)
 	and #ally<2 and e:GetHandler():GetCounter(0xd01)<6
     and e:GetHandler():GetCounter(0xd09)==1 and e:GetHandler():GetCounter(0xd10)==1
     and e:GetHandler():GetCounter(0xd11)==1 and e:GetHandler():GetCounter(0xd12)==1
+	and e:GetHandler():GetCounter(0xd13)==0
 end
 function s.damtg8(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
