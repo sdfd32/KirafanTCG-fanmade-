@@ -176,25 +176,6 @@ function s.damtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local enemy=Duel.GetMatchingGroup(s.noalonefilter,tp,0,LOCATION_MZONE,nil)
     local sg2=enemy:RandomSelect(tp,1)
 	Duel.SetTargetCard(sg2) 
-	
-	local extraatk=Duel.GetRandomNumber(1,10)
-	if (main:IsSetCard(0xd04) and extraatk>=6) or (main:IsSetCard(0xd03) and extraatk>=9) then
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_UPDATE_ATTACK)
-	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_CHAIN)
-	e1:SetValue(2)
-	c:RegisterEffect(e1)
-	elseif (main:IsSetCard(0xd04) and extraatk<=5) or (main:IsSetCard(0xd03) and extraatk<=6)
-	or (main:IsSetCard(0xd02) and extraatk<=5) then
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_UPDATE_ATTACK)
-	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_CHAIN)
-	e1:SetValue(1)
-	c:RegisterEffect(e1)
-	else end	
-	
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
 	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,2))
 end

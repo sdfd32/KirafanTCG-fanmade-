@@ -328,7 +328,7 @@ function s.damop5(e,tp,eg,ep,ev,re,r,rp)
 	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
 	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
     if c:GetCounter(0xd03)==0 then c:AddCounter(0xd03,3)
-	elseif tc:GetCounter(0xd03)==1 then c:AddCounter(0xd03,2)
+	elseif c:GetCounter(0xd03)==1 then c:AddCounter(0xd03,2)
 	elseif c:GetCounter(0xd03)==2 then c:AddCounter(0xd03,1)
 	else end
     local e1=Effect.CreateEffect(c)

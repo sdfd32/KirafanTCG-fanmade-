@@ -55,7 +55,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 function s.cannotcounter(e,c,tp,ctype)
-	return ctype==0xb03 or ctype==0xb04
+	return ctype==0xb03 or ctype==0xb05
 end
 function s.bossdamfilter(c)
 	return c:IsAttackPos() and not c:IsLocation(LOCATION_EMZONE+LOCATION_FZONE)
@@ -109,10 +109,10 @@ function s.spsummon(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SpecialSummon(sugar2,0,tp,tp,false,false,POS_FACEUP_ATTACK)
 	
 	if c:IsSetCard(0xd04) or c:IsSetCard(0xd03) then
-	extrabosshp=5
+	extrabosshp=10
 	extrabosshp1=2
 	else
-	extrabosshp=0
+	extrabosshp=5
 	extrabosshp1=0 end
 
 	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
