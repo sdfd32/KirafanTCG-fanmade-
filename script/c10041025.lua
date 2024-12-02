@@ -249,7 +249,7 @@ function s.bossdamcon4(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>1
 	and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>4
-	and #ally<2 and e:GetHandler():GetCounter(0xd01)>2 and e:GetHandler():GetCounter(0xb08)==0
+	and #ally<2 and e:GetHandler():GetCounter(0xd01)>2 and e:GetHandler():GetCounter(0xd01)<5 and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.damtg4(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
