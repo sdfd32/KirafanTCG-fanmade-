@@ -220,7 +220,8 @@ function Kirafan.TurnPositionop(e,tp,eg,ep,ev,re,r,rp)
 	cg:RemoveCounter(tp,0xc02,1,REASON_EFFECT)
 	cg:RemoveCounter(tp,0xc01,cg:GetCounter(0xc01),REASON_EFFECT)
 	cg:RemoveCounter(tp,0xc04,cg:GetCounter(0xc04),REASON_EFFECT)
-	cg:RemoveCounter(tp,0xd03,1,REASON_EFFECT)	end
+	cg:RemoveCounter(tp,0xd03,1,REASON_EFFECT)
+	cg:RemoveCounter(tp,0xd21,1,REASON_EFFECT)	end
 	
 	local g=Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)
 	if tp~=Duel.GetTurnPlayer() and g>5 then
