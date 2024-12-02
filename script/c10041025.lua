@@ -482,7 +482,7 @@ function s.damop7(e,tp,eg,ep,ev,re,r,rp)
 	Duel.DiscardDeck(tp,3,REASON_EFFECT)
 	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	Duel.DiscardDeck(tp,2,REASON_EFFECT)
-	elseif deckcount==2 then
+	elseif deckcount==4 then
 	Duel.DiscardDeck(tp,4,REASON_EFFECT)
 	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
 	Duel.DiscardDeck(tp,1,REASON_EFFECT)
