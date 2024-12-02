@@ -150,7 +150,7 @@ function s.lgop(e,tp,eg,ep,ev,re,r,rp)
 	local main=Duel.GetMatchingGroup(nil,e:GetHandlerPlayer(),0,LOCATION_EMZONE,nil):GetFirst()
 	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
 	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
-	local Turn=math.min(Duel.GetTurnCount()+1,10)
+	local Turn=math.min(Duel.GetTurnCount()+1,15)
 	if main:GetRank()>=20 then
 	difficultyguage=1
 	elseif main:GetRank()>=30 then
