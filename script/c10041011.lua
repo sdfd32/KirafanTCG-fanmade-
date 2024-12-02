@@ -44,15 +44,6 @@ function s.initial_effect(c)
 	e4:SetTargetRange(0,1)
 	e4:SetTarget(s.cannotcounter)
 	c:RegisterEffect(e4)
-	local e5=Effect.CreateEffect(c)
-	e5:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
-	e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e5:SetCode(EVENT_PHASE+PHASE_DRAW)
-	e5:SetRange(LOCATION_EMZONE)
-	e5:SetCountLimit(1)
-	e5:SetCondition(s.lgcon)
-	e5:SetOperation(s.lgop)
-	c:RegisterEffect(e5)
 end
 function s.cannotcounter(e,c,tp,ctype)
 	return ctype==0xb03 or ctype==0xb06
@@ -148,7 +139,7 @@ function s.lgop(e,tp,eg,ep,ev,re,r,rp)
 	local main=Duel.GetMatchingGroup(nil,e:GetHandlerPlayer(),0,LOCATION_EMZONE,nil):GetFirst()
 	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
 	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
-	local Turn=math.min(Duel.GetTurnCount()+1,10)
+	local Turn=math.min(Duel.GetTurnCount()+2,10)
 	if main:GetRank()>=20 then
 	difficultyguage=1
 	elseif main:GetRank()>=30 then
