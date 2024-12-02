@@ -323,7 +323,7 @@ function s.bossdamcon5(e,tp,eg,ep,ev,re,r,rp)
 	local ally=Duel.GetMatchingGroup(s.bossdamfilter,tp,LOCATION_MZONE,0,nil)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
-	and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>1
+	and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>2
 	and #ally<2 and e:GetHandler():GetCounter(0xb08)>0 and e:GetHandler():GetCounter(0xd01)>4
 end
 function s.damtg5(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -332,31 +332,13 @@ function s.damtg5(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
-	
-	local extraatk=Duel.GetRandomNumber(1,10)
-	if (main:IsSetCard(0xd04) and extraatk>=6) or (main:IsSetCard(0xd03) and extraatk>=9) then
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_UPDATE_ATTACK)
-	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_CHAIN)
-	e1:SetValue(2)
-	c:RegisterEffect(e1)
-	elseif (main:IsSetCard(0xd04) and extraatk<=5) or (main:IsSetCard(0xd03) and extraatk<=6)
-	or (main:IsSetCard(0xd02) and extraatk<=5) then
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_UPDATE_ATTACK)
-	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_CHAIN)
-	e1:SetValue(1)
-	c:RegisterEffect(e1)
-	else end
-	
 	Duel.Hint(HINT_MESSAGE,1-tp,aux.Stringid(id,5))
 end
 function s.damop5(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tg=Duel.GetFirstTarget()
 	local enemy=Duel.GetMatchingGroup(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)
+	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
 	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
 	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
 	c:RemoveCounter(tp,0xb08,c:GetCounter(0xb08),REASON_EFFECT)	
