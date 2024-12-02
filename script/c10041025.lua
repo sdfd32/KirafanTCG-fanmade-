@@ -6,7 +6,7 @@ function s.initial_effect(c)
 	e7:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e7:SetCode(EVENT_CHAIN_END)
 	e7:SetRange(LOCATION_MZONE)
-	e7:SetCountLimit(2)
+	e7:SetCountLimit(1)
 	e7:SetCondition(s.bossdamcon7)
 	e7:SetTarget(s.damtg7)
 	e7:SetOperation(s.damop7)
@@ -79,7 +79,7 @@ function s.bossdamcon1(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
 	and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>1 
-	and #ally<2 and e:GetHandler():GetCounter(0xd01)<5
+	and #ally<2 and e:GetHandler():GetCounter(0xd01)<6
 end
 function s.damtg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -139,7 +139,7 @@ function s.bossdamcon2(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
 	and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>2
-	and #ally<2 and e:GetHandler():GetCounter(0xd01)<5 and e:GetHandler():GetCounter(0xb08)==0
+	and #ally<2 and e:GetHandler():GetCounter(0xd01)<6 and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.damtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -198,7 +198,7 @@ function s.bossdamcon3(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
 	and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>2
-	and #ally<2 and e:GetHandler():GetCounter(0xd01)<5 and e:GetHandler():GetCounter(0xb08)==0
+	and #ally<2 and e:GetHandler():GetCounter(0xd01)<6 and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.damtg3(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -257,7 +257,7 @@ function s.bossdamcon4(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>1
 	and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>4
-	and #ally<2 and e:GetHandler():GetCounter(0xd01)<5 and e:GetHandler():GetCounter(0xb08)==0
+	and #ally<2 and e:GetHandler():GetCounter(0xd01)<6 and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.damtg4(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -324,7 +324,7 @@ function s.bossdamcon5(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
 	and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>1
-	and #ally<2 and e:GetHandler():GetCounter(0xb08)>0 and e:GetHandler():GetCounter(0xd01)>3
+	and #ally<2 and e:GetHandler():GetCounter(0xb08)>0 and e:GetHandler():GetCounter(0xd01)>4
 end
 function s.damtg5(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -373,7 +373,7 @@ function s.bossdamcon6(e,tp,eg,ep,ev,re,r,rp)
 	local ally=Duel.GetMatchingGroup(s.bossdamfilter,tp,LOCATION_MZONE,0,nil)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
-	and #ally<2 and e:GetHandler():GetCounter(0xd01)>4 and e:GetHandler():GetCounter(0xb08)==0
+	and #ally<2 and e:GetHandler():GetCounter(0xd01)>5 and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.damtg6(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -443,7 +443,7 @@ function s.bossdamcon7(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>0
 	and ((e:GetHandler():GetDefense()<=20 and (main:IsSetCard(0xd04) or main:IsSetCard(0xd03))) or (e:GetHandler():GetDefense()<=10 and (main:IsSetCard(0xd01) or main:IsSetCard(0xd02))))
-	and #ally<2 and e:GetHandler():GetCounter(0xd01)<5 and e:GetHandler():GetCounter(0xc06)<2 and e:GetHandler():GetCounter(0xb08)==0 and e:GetHandler():GetCounter(0xd15)==0
+	and #ally<2 and e:GetHandler():GetCounter(0xd01)<6 and e:GetHandler():GetCounter(0xc06)<2 and e:GetHandler():GetCounter(0xb08)==0 and e:GetHandler():GetCounter(0xd15)==0
 end
 function s.damtg7(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
