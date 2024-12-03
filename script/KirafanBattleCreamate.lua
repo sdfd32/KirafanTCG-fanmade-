@@ -177,6 +177,20 @@ function Kirafan6.NoDotteEffcon4(c)
 	Duel.SetChainLimit(aux.FALSE) end)
 	c:RegisterEffect(e1)
 end
+function Kirafan6.NoDottecardEffcon1(c)
+	local e1=Effect.CreateEffect(c)
+	e1:SetDescription(aux.Stringid(10050111,6))
+	e1:SetType(EFFECT_TYPE_QUICK_O)
+	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetCondition(Kirafan6.damcon)
+	e1:SetTarget(function(e,tp,eg,ep,ev,re,r,rp,chk)
+	local hand=Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)
+	if chk==0 then return Duel.IsExistingTarget(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,1,nil)
+	and hand>0 end
+	Duel.SetChainLimit(aux.FALSE) end)
+	c:RegisterEffect(e1)
+end
 
 --서포트 크리에메이트 힌트
 function Kirafan6.sghealhint(e,tp,eg,ep,ev,re,r,rp)
