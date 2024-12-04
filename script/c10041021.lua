@@ -185,7 +185,7 @@ function s.bossdamcon3(e,tp,eg,ep,ev,re,r,rp)
 	local ally=Duel.GetMatchingGroup(s.bossdamfilter,tp,LOCATION_MZONE,0,nil)
 	return Duel.IsBattlePhase() and Duel.GetTurnPlayer()==tp and Duel.GetCurrentChain()==0
 	and Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)>1
-	and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>2
+	and Duel.GetMatchingGroupCount(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,0,nil)>0
 	and #ally<2 and e:GetHandler():GetCounter(0xd01)<3
 end
 function s.damtg3(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -199,8 +199,7 @@ function s.damtg3(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetChainLimit(Kirafan8.mychainlimit)
 	
 	local extraatk=Duel.GetRandomNumber(1,10)
-	if (main:IsSetCard(0xd04) and extraatk<=6) or (main:IsSetCard(0xd03) and extraatk<=4)
-	or (main:IsSetCard(0xd02) and extraatk<=2) then
+	if (main:IsSetCard(0xd04) and extraatk<=4) or (main:IsSetCard(0xd03) and extraatk<=2) then
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
@@ -215,8 +214,6 @@ function s.damop3(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tg=Duel.GetFirstTarget()
 	local enemy=Duel.GetMatchingGroup(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)
-	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
-	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
 	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
 	local attack=c:GetAttack()
 	local dam=attack
