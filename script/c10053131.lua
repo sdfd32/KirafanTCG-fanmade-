@@ -27,7 +27,7 @@ function s.knconfilter(c,tp)
 	return c:IsPreviousControler(tp) and c:IsPreviousLocation(LOCATION_OVERLAY)
 end
 function s.kncon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.knconfilter,1,nil,tp) and Duel.GetTurnPlayer()~=tp
+	return eg:IsExists(s.knconfilter,1,nil,tp) and Duel.GetTurnPlayer()~=tp and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.knop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

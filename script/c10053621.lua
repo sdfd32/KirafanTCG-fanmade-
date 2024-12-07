@@ -32,7 +32,7 @@ function s.initial_effect(c)
 end
 function s.fccondition(e)
 	local tp=e:GetHandlerPlayer()
-	return Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,LOCATION_SZONE,0,nil)==0
+	return Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,LOCATION_SZONE,0,nil)==0 and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.atcon(e)
 	local c=e:GetHandler()

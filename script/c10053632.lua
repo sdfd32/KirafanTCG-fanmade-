@@ -30,6 +30,7 @@ end
 function s.kncon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.knconfilter,1,nil,tp) and Duel.GetTurnPlayer()~=tp
 	and (Duel.GetAttacker() and Duel.GetAttacker():IsControler(1-tp))
+	and e:GetHandler():GetCounter(0xb08)==0
 end
 function s.knop(e,tp,eg,ep,ev,re,r,rp)
     local c=e:GetHandler()
