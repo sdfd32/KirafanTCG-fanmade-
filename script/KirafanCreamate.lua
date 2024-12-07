@@ -469,7 +469,7 @@ end
 function Kirafan2.recoveryop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local ahp=c:GetDefense()
-	local bhp=c:GetBaseDefense()
+	local bhp=c:GetBaseDefense()-c:GetCounter(0xd16)-c:GetCounter(0xd17)*2
 	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
 	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
 	recoveryheal=2
