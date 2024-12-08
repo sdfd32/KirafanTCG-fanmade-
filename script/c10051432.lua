@@ -38,7 +38,7 @@ end
 function s.damop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
     local con=Duel.GetMatchingGroupCount(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)
-	c:AddCounter(0xc01,1)
+	c:AddCounter(0xc01,3)
     if con>0 and Duel.GetMatchingGroupCount(nil,tp,LOCATION_GRAVE,0,nil)>0 
 	and Duel.SelectYesNo(tp,aux.Stringid(10050111,4)) then
     Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
