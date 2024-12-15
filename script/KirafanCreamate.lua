@@ -177,8 +177,8 @@ end
 function Kirafan2.AttackDotteop2(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetFieldGroupCount(1-tp,0,LOCATION_GRAVE)>1 then
 	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
-	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp) end
-	if Duel.GetFieldGroupCount(1-tp,0,LOCATION_GRAVE)>0 then
+	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp)
+	elseif Duel.GetFieldGroupCount(1-tp,0,LOCATION_GRAVE)>0 then
 	Kirafan6.consumedotte(e,tp,eg,ep,ev,re,r,rp) end
 end
 function Kirafan2.hpop(e,tp,eg,ep,ev,re,r,rp)
