@@ -17,7 +17,7 @@ function s.initial_effect(c)
 	e5:SetTarget(Kirafan6.nodamtg)
 	e5:SetOperation(s.damop)
 	c:RegisterEffect(e5)
-    Kirafan6.NoDotteEffcon2(c)
+    Kirafan6.NoDotteEffcon3(c)
 end
 function s.battlecon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
@@ -25,14 +25,25 @@ function s.battlecon(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.battleop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-    local bg=Duel.GetDecktopGroup(tp,2)
-	Duel.Overlay(c,bg)
+	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
+	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
+	heal=2
+	local bg=Duel.GetDecktopGroup(tp,heal)
+	if deckcount<heal then
+	local bg1=Duel.GetDecktopGroup(tp,deckcount)
+	Duel.Overlay(c,bg1)
+	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
+	local bg2=Duel.GetDecktopGroup(tp,heal-deckcount)
+	Duel.Overlay(c,bg2)
+	else
+	local bg=Duel.GetDecktopGroup(tp,heal)
+	Duel.Overlay(c,bg) end
 end
 function s.damop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local enemy=Duel.GetMatchingGroup(Kirafan6.NoEmFzonefilter,tp,0,LOCATION_MZONE,nil)
-    local hp = c:GetDefense()
-	local dam=math.floor(hp/3)
+    local hp=c:GetDefense()
+	local dam=math.floor(hp/4)
 	Duel.Damage(1-tp,dam,REASON_EFFECT)
 	local ag=enemy:GetFirst()
 	for ag in aux.Next(enemy) do

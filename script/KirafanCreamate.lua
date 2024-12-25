@@ -16,6 +16,8 @@ function Kirafan2.CreamateCharacter(c)
 	c:EnableCounterPermit(0xc04)
 	c:EnableCounterPermit(0xc05)
 	c:EnableCounterPermit(0xc06)
+	c:EnableCounterPermit(0xc07)
+	c:EnableCounterPermit(0xc08)
 	c:EnableCounterPermit(0xd01)
 	c:EnableCounterPermit(0xd02)
 	c:EnableCounterPermit(0xd03)
@@ -51,6 +53,8 @@ function Kirafan2.CreamateCharacternodotte(c)
 	c:EnableCounterPermit(0xc04)
 	c:EnableCounterPermit(0xc05)
 	c:EnableCounterPermit(0xc06)
+	c:EnableCounterPermit(0xc07)
+	c:EnableCounterPermit(0xc08)
 	c:EnableCounterPermit(0xd01)
 	c:EnableCounterPermit(0xd02)
 	c:EnableCounterPermit(0xd03)
@@ -63,6 +67,10 @@ function Kirafan2.CreamateCharacternodotte(c)
 	c:EnableCounterPermit(0xd15)
 	c:EnableCounterPermit(0xd16)
 	c:EnableCounterPermit(0xd17)
+	c:EnableCounterPermit(0xd18)
+	c:EnableCounterPermit(0xd19)
+	c:EnableCounterPermit(0xd20)
+	c:EnableCounterPermit(0xd21)
 	Kirafan2.SummonCreamate(c)
 	Kirafan2.CreamateEffnodotte(c)
 	Kirafan2.CreamateBattle(c)
@@ -307,7 +315,7 @@ function Kirafan2.NoBtDestroy(e,tp,eg,ep,ev,re,r,rp,chk)
 	return true
 end
 
---데미지처리(1단일공격,2광역공격,3무량공격,4카운터필요,5히로)
+--데미지처리(1단일공격,2광역공격,3무량공격,4카운터필요,5히로,6코우메)
 function Kirafan2.CreamateBattle(c)
     local e1=Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
@@ -341,6 +349,13 @@ function Kirafan2.CreamateBattle(c)
 	e5:SetCondition(Kirafan2.battlecon2)
 	e5:SetOperation(Kirafan2.battleop2)
     c:RegisterEffect(e5)
+	local e6=Effect.CreateEffect(c)
+    e6:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+    e6:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
+	e6:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+	e6:SetCondition(Kirafan2.battlecon3)
+	e6:SetOperation(Kirafan2.battleop3)
+    c:RegisterEffect(e6)
 end
 function Kirafan2.battlecon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -351,6 +366,7 @@ function Kirafan2.battleop(e,tp,eg,ep,ev,re,r,rp)
 	local enemy=c:GetBattleTarget()
 	if enemy==nil then else
 	local dam=c:GetAttack()
+	if c:IsCode(10052532) then dam=0 end
 	if enemy:GetCounter(0xc06)>0 then 
 	dam=math.floor(c:GetAttack()/2)
 	enemy:RemoveCounter(tp,0xc06,1,REASON_EFFECT) end
@@ -420,6 +436,23 @@ function Kirafan2.battleop2(e,tp,eg,ep,ev,re,r,rp)
 	Kirafan6.hungerop(e,tp,eg,ep,ev,re,r,rp)
 	c:RemoveCounter(tp,0xc01,1,REASON_EFFECT)
 	c:RemoveCounter(tp,0xc04,1,REASON_EFFECT)
+end
+function Kirafan2.battlecon3(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	return not c:IsSetCard(0xa02) and Duel.GetAttacker():IsControler(tp) 
+	and c:GetCounter(0xc04)==0 and c:IsCode(10052532)
+end
+function Kirafan2.battleop3(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local enemy=c:GetBattleTarget()
+	if enemy==nil then else
+	local dam=c:GetAttack()
+	if enemy:GetCounter(0xc06)>0 then 
+	dam=math.floor(c:GetAttack()/2)
+	enemy:RemoveCounter(tp,0xc06,1,REASON_EFFECT) end
+	enemy:AddCounter(0xd16,dam) end
+	Kirafan6.hungerop(e,tp,eg,ep,ev,re,r,rp)
+	c:RemoveCounter(tp,0xc01,1,REASON_EFFECT)
 end
 
 --1리커버리,2수면,3고립,4보스 리커버리,5최대 체력 감소

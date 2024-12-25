@@ -1,5 +1,6 @@
 local s,id=GetID()
 function s.initial_effect(c)
+	Kirafan3.SpCreamateSgHeal(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetType(EFFECT_TYPE_QUICK_O)
@@ -8,14 +9,9 @@ function s.initial_effect(c)
 	e1:SetRange(LOCATION_HAND)
 	e1:SetCondition(Kirafan6.spcreamatecon)
 	e1:SetCost(s.cost)
-	e1:SetTarget(Kirafan6.spdamtg)
+	e1:SetTarget(Kirafan6.nospcondamtg)
 	e1:SetOperation(s.op)
 	c:RegisterEffect(e1)
-	local e2=e1:Clone()
-	e2:SetDescription(aux.Stringid(id,1))
-	e2:SetTarget(Kirafan6.damtg)
-	e2:SetOperation(s.op2)
-	c:RegisterEffect(e2)
 	Kirafan3.SpCreamateCharacter(c)
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -25,12 +21,18 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local tc=Duel.GetFirstTarget()
-	if tc:GetCounter(0xc06)==0 then tc:AddCounter(0xc06,1) else end
-end
-function s.op2(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	local tc=Duel.GetFirstTarget()
-	if tc:GetCounter(0xb01)==0 then tc:AddCounter(0xb01,1) else end
-	Kirafan6.guagetrigger(c)
+	local hand=Duel.GetMatchingGroup(nil,1-tp,0,LOCATION_HAND,nil)
+	local handcnt=Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)
+	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
+	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
+	local ag=hand:GetFirst()
+	for ag in aux.Next(hand) do
+	Duel.Remove(ag,POS_FACEUP,REASON_EFFECT) end
+	if deckcount<handcnt then
+	Duel.Draw(tp,deckcount,REASON_RULE)
+	Duel.SendtoDeck(refill,nil,SEQ_DECKSHUFFLE,REASON_RULE)
+	Duel.Draw(tp,handcnt-deckcount,REASON_RULE)
+	else
+	Duel.Draw(tp,handcnt,REASON_RULE) end
+	Kirafan6.drawtrigger(c)
 end

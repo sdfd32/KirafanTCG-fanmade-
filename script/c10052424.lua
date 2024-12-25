@@ -34,7 +34,7 @@ function s.damop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetValue(1)
 	tg:RegisterEffect(e1)
-	local dam=3
+	local dam=2
 	Duel.Damage(1-tp,dam,REASON_EFFECT)
 	local g=tg:GetOverlayGroup()
 	if #g<=dam then Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
