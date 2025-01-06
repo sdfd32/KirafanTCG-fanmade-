@@ -42,7 +42,7 @@ function Kirafan3.triggercon(e)
 	local main=Duel.GetMatchingGroup(nil,tp,LOCATION_EMZONE,0,nil):GetFirst()
 	local CreamateLv=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_ONFIELD,0,nil):GetSum(Card.GetLevel)
     return Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and main:GetDefense()-CreamateLv<c:GetLevel()
-	and not main:IsCode(10050110)
+	and not main:IsCode(10050110) and c:IsLocation(LOCATION_HAND)
 end
 function Kirafan3.noeffecttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -93,7 +93,7 @@ function Kirafan3.sghealop(e,tp,eg,ep,ev,re,r,rp)
 	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
 	if c:IsCode(10054110) then sgheal=3
 	else sgheal=4 end
-	if bhp<=ahp or tc:IsCode(10053532) then sgheal=0
+	if bhp<=ahp then sgheal=0
 	elseif bhp-ahp<sgheal then sgheal=bhp-ahp end
 	local bg=Duel.GetDecktopGroup(tp,sgheal)
 	if deckcount<sgheal then
@@ -140,7 +140,7 @@ function Kirafan3.allhealop(e,tp,eg,ep,ev,re,r,rp)
 	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
 	if c:IsCode(10055113) then allheal=1
 	else allheal=2 end
-	if bhp<=ahp or tc:IsCode(10053532) then allheal=0
+	if bhp<=ahp then allheal=0
 	elseif bhp-ahp<allheal then allheal=bhp-ahp end
 	local bg=Duel.GetDecktopGroup(tp,allheal)
 	if deckcount<allheal then
@@ -179,8 +179,7 @@ function Kirafan3.ovsghealop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
 	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
-	if tc:IsCode(10053532) then sgheal2=0
-	elseif c:IsCode(10054520) then sgheal2=4
+	if c:IsCode(10054520) then sgheal2=4
 	else sgheal2=3 end
 	local bg=Duel.GetDecktopGroup(tp,sgheal2)
 	if deckcount<sgheal2 then
@@ -218,8 +217,7 @@ function Kirafan3.ovallhealop(e,tp,eg,ep,ev,re,r,rp)
 	for tc in aux.Next(hg) do
 	local deckcount=Duel.GetMatchingGroupCount(nil,tp,LOCATION_DECK,0,nil)
 	local refill=Duel.GetMatchingGroup(nil,tp,LOCATION_REMOVED,0,nil)
-	if tc:IsCode(10053532) then allheal2=0
-	elseif c:IsCode(10054110) then allheal2=4
+	if c:IsCode(10054110) then allheal2=4
 	else allheal2=2 end
 	local bg=Duel.GetDecktopGroup(tp,allheal2)
 	if deckcount<allheal2 then
